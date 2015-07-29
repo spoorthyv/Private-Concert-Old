@@ -20,11 +20,12 @@ class MediaButton: UIButton {
     var isPaused: Bool = true{
         didSet{
             if isPaused == false{
-                
                 self.setImage(pauseImage, forState: .Normal)
+                //self.setTitle("", forState: .Normal)
                 
             } else {
                 self.setImage(playImage, forState: .Normal)
+                //self.setTitle("", forState: .Normal)
             }
             
         }

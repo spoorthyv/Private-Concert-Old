@@ -10,6 +10,8 @@
 	<string>PrivateConcert</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>0137230F21D0309EC2808BE5E1B79F6011B6A264</key>
+		<string>https://github.com/spoorthyv/Private-Concert.git</string>
 		<key>02C56D3769EE742EA8036D398CEF0E901B576A0B</key>
 		<string>https://github.com/spoorthyv/Private-Concert</string>
 	</dict>
@@ -17,17 +19,27 @@
 	<string>PrivateConcert.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>02C56D3769EE742EA8036D398CEF0E901B576A0B</key>
+		<key>0137230F21D0309EC2808BE5E1B79F6011B6A264</key>
 		<string>../..</string>
+		<key>02C56D3769EE742EA8036D398CEF0E901B576A0B</key>
+		<string>../../../PrivateConcert</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/spoorthyv/Private-Concert</string>
+	<string>https://github.com/spoorthyv/Private-Concert.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>02C56D3769EE742EA8036D398CEF0E901B576A0B</string>
+	<string>0137230F21D0309EC2808BE5E1B79F6011B6A264</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>0137230F21D0309EC2808BE5E1B79F6011B6A264</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Private-Concert</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
