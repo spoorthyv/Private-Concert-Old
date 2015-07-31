@@ -8,12 +8,14 @@
 
 import Foundation
 import UIKit
+import Parse
 
 class TabBarController: UIViewController {
     
     var currentViewController: UIViewController?
     @IBOutlet var placeholderView: UIView!
     @IBOutlet var tabBarButtons: Array<UIButton>!
+    
     
     override func viewDidLoad() {
         
@@ -24,6 +26,10 @@ class TabBarController: UIViewController {
         }
     }
     
+    @IBAction func logoutAction(sender: AnyObject) {
+        PFUser.logOut()
+        performSegueWithIdentifier("goBackToLogin", sender: self)
+    }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         let availableIdentifiers = ["FirstVCIdentifier", "SecondVCIdentifier", "ThirdVCIdentifier"]

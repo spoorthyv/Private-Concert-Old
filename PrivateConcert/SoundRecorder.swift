@@ -10,13 +10,11 @@ import UIKit
 import AVFoundation
 import Parse
 
-class SoundRecorder: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
+class SoundRecorder: UIViewController, AVAudioRecorderDelegate {
     
     @IBOutlet weak var recordButton: UIButton!
-    @IBOutlet weak var playButton: UIButton!
     
     var soundRecorder: AVAudioRecorder!
-    var soundPlayer:AVAudioPlayer!
     var soundFileURL: NSURL!
     var session: AVAudioSession = AVAudioSession.sharedInstance()
     
@@ -74,45 +72,15 @@ class SoundRecorder: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
         return paths[0]
     }
     
-    //setup player by passing it a URL
-    func preparePlayer() {
-        var error: NSError?
-        
-        soundPlayer = AVAudioPlayer(contentsOfURL: getFileURL(), error: &error)
-        
-        if let err = error {
-            println("AVAudioPlayer error: \(err.localizedDescription)")
-        } else {
-            soundPlayer.delegate = self
-            soundPlayer.prepareToPlay()
-            soundPlayer.volume = 1.0
-        }
-    }
-    
     //if the button labeled "record" is pressed record audio, then switch the buttons to correct labels
-    @IBAction func recordSound(sender: UIButton) {
-        if (sender.titleLabel?.text == "Record"){
+    @IBAction func recordSound(sender: RecordButton) {
+        if (sender.isRecording == false){
             soundRecorder.record()
-            sender.setTitle("Stop", forState: .Normal)
-            playButton.enabled = false
+            //sender.setTitle("Stop", forState: .Normal)
         }
         else {
             soundRecorder.stop()
-            sender.setTitle("Record", forState: .Normal)
-            addNamestoParse(exSong)
-        }
-    }
-    
-    @IBAction func playSound(sender: UIButton) {
-        if (sender.titleLabel?.text == "Play"){
-            self.session.setCategory(AVAudioSessionCategoryPlayback, error: nil)
-            recordButton.enabled = false
-            sender.setTitle("Stop", forState: .Normal)
-            preparePlayer()
-            soundPlayer.play()
-        } else {
-            soundPlayer.stop()
-            sender.setTitle("Play", forState: .Normal)
+            //sender.setTitle("Record", forState: .Normal)
         }
     }
     
@@ -141,23 +109,14 @@ class SoundRecorder: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
     
     //Useless stuff
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {
-        playButton.enabled = true
-        recordButton.setTitle("Record", forState: .Normal)
+        addNamestoParse(exSong)
+        //recordButton.setTitle("Record", forState: .Normal)
     }
     
     func audioRecorderEncodeErrorDidOccur(recorder: AVAudioRecorder!, error: NSError!) {
         println("Error while recording audio \(error.localizedDescription)")
     }
-    
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
-        recordButton.enabled = true
-        playButton.setTitle("Play", forState: .Normal)
-    }
-    
-    func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer!, error: NSError!) {
-        println("Error while playing audio \(error.localizedDescription)")
-    }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

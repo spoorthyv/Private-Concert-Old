@@ -13,6 +13,9 @@ import AVKit
 
 class MainTableViewController: UITableViewController, AVAudioPlayerDelegate {
     
+    var grayBackroundColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+    
+    var session: AVAudioSession = AVAudioSession.sharedInstance()
     var AudioPlayer = AVPlayer()
     var selectedSongNumber = Int()
     
@@ -54,6 +57,9 @@ class MainTableViewController: UITableViewController, AVAudioPlayerDelegate {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        tableView.separatorColor = grayBackroundColor
+        tableView.separatorStyle = .None
+        
         var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! MainTableViewCell
         
         cell.titleLabel?.text = nameArray[indexPath.row]
@@ -75,6 +81,7 @@ class MainTableViewController: UITableViewController, AVAudioPlayerDelegate {
     }
     
     func grabSong(songNumber: Int){
+        self.session.setCategory(AVAudioSessionCategoryPlayback, error: nil)
         var songQuery = PFQuery(className: "Song")
         //println(selectedSongNumber)
         songQuery.getObjectInBackgroundWithId(IDArray[songNumber], block: {
@@ -104,13 +111,22 @@ class MainTableViewController: UITableViewController, AVAudioPlayerDelegate {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         selectedSongNumber = indexPath.row
         println(selectedSongNumber)
-        //grabSong(indexPath.row)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
+    override func tableView(_tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+            if cell.respondsToSelector("setSeparatorInset:") {
+                cell.separatorInset = UIEdgeInsetsZero
+            }
+            if cell.respondsToSelector("setLayoutMargins:") {
+                cell.layoutMargins = UIEdgeInsetsZero
+            }
+            if cell.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
+                cell.preservesSuperviewLayoutMargins = false
+            }
+    }
     
 }
