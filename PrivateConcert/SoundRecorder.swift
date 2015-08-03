@@ -13,6 +13,7 @@ import Parse
 class SoundRecorder: UIViewController, AVAudioRecorderDelegate {
     
     @IBOutlet weak var recordButton: UIButton!
+    @IBOutlet weak var isRecordingLabel: UILabel!
     
     var soundRecorder: AVAudioRecorder!
     var soundFileURL: NSURL!
@@ -72,22 +73,26 @@ class SoundRecorder: UIViewController, AVAudioRecorderDelegate {
         return paths[0]
     }
     
-    //if the button labeled "record" is pressed record audio, then switch the buttons to correct labels
+    //switch state of whether or not we are recording
     @IBAction func recordSound(sender: RecordButton) {
         if (sender.isRecording == false){
             soundRecorder.record()
-            //sender.setTitle("Stop", forState: .Normal)
+            isRecordingLabel.text = "Recording"
         }
         else {
             soundRecorder.stop()
-            //sender.setTitle("Record", forState: .Normal)
+            isRecordingLabel.text = "Share Your Voice!"
+            
         }
     }
     
-    func addNamestoParse(obj: Song) {
+    //Upload songname, tags, user, and songfile
+    func uploadSong(obj: Song) {
         var className = PFObject(className: "Song")
         className.setObject(obj.name, forKey: "songName")
         className.setObject(obj.tags, forKey: "tags")
+        className.setObject(obj.user, forKey: "User")
+        
         className.saveInBackgroundWithBlock {
             (success: Bool, error: NSError?) -> Void in
             if success == true {
@@ -107,12 +112,13 @@ class SoundRecorder: UIViewController, AVAudioRecorderDelegate {
     }
     
     
-    //Useless stuff
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {
-        addNamestoParse(exSong)
+        uploadSong(exSong)
         //recordButton.setTitle("Record", forState: .Normal)
     }
     
+    
+    //Useless stuff
     func audioRecorderEncodeErrorDidOccur(recorder: AVAudioRecorder!, error: NSError!) {
         println("Error while recording audio \(error.localizedDescription)")
     }

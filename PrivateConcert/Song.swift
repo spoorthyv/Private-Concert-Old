@@ -13,15 +13,18 @@ import Parse
 class Song: NSObject {
     var name: String
     var tags: [String]
+    var score: Int
+    var user: PFUser
+    
     //change audio later
     var audio: String
-    var score: Int
     
     init (title: String, tags: [String]) {
         self.name = title
         self.tags = tags
         self.audio = "Blank"
         self.score = 0
+        self.user = PFUser.currentUser()!
     }
     
     func tagLine() -> String {
