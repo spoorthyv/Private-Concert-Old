@@ -1,8 +1,8 @@
 //
-//  MainTableViewController.swift
+//  UserTableViewController.swift
 //  PrivateConcert
 //
-//  Created by Spoorthy Vemula on 7/27/15.
+//  Created by Spoorthy Vemula on 8/3/15.
 //  Copyright (c) 2015 Spoorthy Vemula. All rights reserved.
 //
 
@@ -11,7 +11,7 @@ import Parse
 import AVFoundation
 import AVKit
 
-class MainTableViewController: UITableViewController, AVAudioPlayerDelegate {
+class UserTableViewController: UITableViewController, AVAudioPlayerDelegate {
     
     var grayBackroundColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
     
@@ -26,14 +26,21 @@ class MainTableViewController: UITableViewController, AVAudioPlayerDelegate {
     //images
     let playImage = UIImage(named: "GreenPlay") as UIImage?
     let pauseImage = UIImage(named: "PurplePause") as UIImage?
-
+    
     var isPaused = true
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    
         var ObjectIDQuery = PFQuery(className: "Song")
+        
+        
+        ObjectIDQuery.includeKey("Song")
+        ObjectIDQuery.whereKey("User", equalTo: PFUser.currentUser()!)
+        
+        
         ObjectIDQuery.findObjectsInBackgroundWithBlock({
             (objectsArray: [AnyObject]?, error: NSError?) -> Void in
             
@@ -57,8 +64,10 @@ class MainTableViewController: UITableViewController, AVAudioPlayerDelegate {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        tableView.separatorColor = grayBackroundColor
+        tableView.separatorStyle = .None
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! MainTableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! UserTableViewCell
         
         cell.titleLabel?.text = nameArray[indexPath.row]
         cell.tagsLabel?.text = tagsArray[indexPath.row]
@@ -78,10 +87,9 @@ class MainTableViewController: UITableViewController, AVAudioPlayerDelegate {
         return tempString
     }
     
-    func grabSong(songNumber: Int){
+    func playSong(songNumber: Int){
         self.session.setCategory(AVAudioSessionCategoryPlayback, error: nil)
         var songQuery = PFQuery(className: "Song")
-        //println(selectedSongNumber)
         songQuery.getObjectInBackgroundWithId(IDArray[songNumber], block: {
             (object: PFObject?, error: NSError?) -> Void in
             if let AudioFileURLTemp = object?.objectForKey("songFile")?.url{
@@ -97,7 +105,7 @@ class MainTableViewController: UITableViewController, AVAudioPlayerDelegate {
     
     func playPause(sender:MediaButton) {
         if (isPaused) {
-            grabSong(sender.cellRow)
+            playSong(sender.cellRow)
             isPaused = false
             
         } else {
@@ -116,15 +124,15 @@ class MainTableViewController: UITableViewController, AVAudioPlayerDelegate {
     }
     
     override func tableView(_tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-            if cell.respondsToSelector("setSeparatorInset:") {
-                cell.separatorInset = UIEdgeInsetsZero
-            }
-            if cell.respondsToSelector("setLayoutMargins:") {
-                cell.layoutMargins = UIEdgeInsetsZero
-            }
-            if cell.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
-                cell.preservesSuperviewLayoutMargins = false
-            }
+        if cell.respondsToSelector("setSeparatorInset:") {
+            cell.separatorInset = UIEdgeInsetsZero
+        }
+        if cell.respondsToSelector("setLayoutMargins:") {
+            cell.layoutMargins = UIEdgeInsetsZero
+        }
+        if cell.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
+            cell.preservesSuperviewLayoutMargins = false
+        }
     }
     
 }

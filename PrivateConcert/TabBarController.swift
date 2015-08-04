@@ -27,14 +27,17 @@ class TabBarController: UIViewController {
     }
     
     @IBAction func logoutAction(sender: AnyObject) {
-        PFUser.logOut()
-        performSegueWithIdentifier("goBackToLogin", sender: self)
+        if (hasPopup){
+        } else {
+            PFUser.logOut()
+            performSegueWithIdentifier("goBackToLogin", sender: self)
+        }
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         let availableIdentifiers = ["FirstVCIdentifier", "SecondVCIdentifier", "ThirdVCIdentifier"]
         
-        if(contains(availableIdentifiers, segue.identifier!)) {
+        if(!hasPopup && contains(availableIdentifiers, segue.identifier!)) {
             
             for btn in tabBarButtons {
                 btn.selected = false

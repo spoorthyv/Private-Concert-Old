@@ -30,7 +30,6 @@ class SoundRecorder: UIViewController, AVAudioRecorderDelegate {
     
     //creates an AVAudioRecorder object with the correct settings. Gives it a URL and settings
     func setupRecorder() {
-        //set the settings for recorder
         var recordSettings = [
             AVFormatIDKey: kAudioFormatAppleLossless,
             AVEncoderAudioQualityKey : AVAudioQuality.Max.rawValue,
@@ -78,11 +77,13 @@ class SoundRecorder: UIViewController, AVAudioRecorderDelegate {
         if (sender.isRecording == false){
             soundRecorder.record()
             isRecordingLabel.text = "Recording"
+            hasPopup = true
+            
         }
         else {
             soundRecorder.stop()
             isRecordingLabel.text = "Share Your Voice!"
-            
+            hasPopup = false
         }
     }
     
@@ -114,9 +115,7 @@ class SoundRecorder: UIViewController, AVAudioRecorderDelegate {
     
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {
         uploadSong(exSong)
-        //recordButton.setTitle("Record", forState: .Normal)
     }
-    
     
     //Useless stuff
     func audioRecorderEncodeErrorDidOccur(recorder: AVAudioRecorder!, error: NSError!) {

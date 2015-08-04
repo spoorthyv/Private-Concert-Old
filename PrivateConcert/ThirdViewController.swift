@@ -10,9 +10,11 @@ import UIKit
 
 class ThirdViewController: UIViewController {
 
+    @IBOutlet weak var popupView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        popupView.hidden = true
         // Do any additional setup after loading the view.
     }
 
@@ -20,7 +22,14 @@ class ThirdViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    @IBAction func buttonPressed(sender: AnyObject) {
+        
+        popupView.hidden = false
+    }
     
+    @IBAction func hideView(sender: AnyObject) {
+        popupView.hidden = true
+    }
 
     /*
     // MARK: - Navigation

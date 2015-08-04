@@ -10,6 +10,8 @@
 		E50BE9601B67E0680076E83F /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BE95F1B67E0680076E83F /* MainTableViewCell.swift */; };
 		E50BE9641B68034F0076E83F /* MediaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BE9631B68034F0076E83F /* MediaButton.swift */; };
 		E50BE9671B6835C30076E83F /* SoundRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BE9661B6835C30076E83F /* SoundRecorder.swift */; };
+		E51AA08C1B6FDC010068DF8B /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51AA08B1B6FDC010068DF8B /* UserTableViewCell.swift */; };
+		E51AA0901B6FDC320068DF8B /* UserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51AA08F1B6FDC320068DF8B /* UserTableViewController.swift */; };
 		E56B370B1B66C3540015678A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B370A1B66C3540015678A /* AppDelegate.swift */; };
 		E56B37101B66C3540015678A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E56B370E1B66C3540015678A /* Main.storyboard */; };
 		E56B37121B66C3540015678A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E56B37111B66C3540015678A /* Images.xcassets */; };
@@ -64,6 +66,8 @@
 		E50BE95F1B67E0680076E83F /* MainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		E50BE9631B68034F0076E83F /* MediaButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaButton.swift; sourceTree = "<group>"; };
 		E50BE9661B6835C30076E83F /* SoundRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundRecorder.swift; sourceTree = "<group>"; };
+		E51AA08B1B6FDC010068DF8B /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
+		E51AA08F1B6FDC320068DF8B /* UserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserTableViewController.swift; path = ../UserTableViewController.swift; sourceTree = "<group>"; };
 		E56B37051B66C3540015678A /* PrivateConcert.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrivateConcert.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E56B37091B66C3540015678A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E56B370A1B66C3540015678A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -191,6 +195,8 @@
 				E5ED4EAA1B6BE41B001889C8 /* CustomLoginViewController.swift */,
 				E5ED4EAC1B6BE48D001889C8 /* CustomSignupViewController.swift */,
 				E50BE9661B6835C30076E83F /* SoundRecorder.swift */,
+				E51AA08F1B6FDC320068DF8B /* UserTableViewController.swift */,
+				E51AA08B1B6FDC010068DF8B /* UserTableViewCell.swift */,
 				E56B37551B66EBE40015678A /* MainTableViewController.swift */,
 				E50BE95F1B67E0680076E83F /* MainTableViewCell.swift */,
 				E56B37301B66C3FD0015678A /* TabBarController.swift */,
@@ -367,6 +373,7 @@
 				E5ED4EAB1B6BE41B001889C8 /* CustomLoginViewController.swift in Sources */,
 				E56B372B1B66C3C60015678A /* FirstViewController.swift in Sources */,
 				E50BE9641B68034F0076E83F /* MediaButton.swift in Sources */,
+				E51AA08C1B6FDC010068DF8B /* UserTableViewCell.swift in Sources */,
 				E56B372F1B66C3E50015678A /* ThirdViewController.swift in Sources */,
 				E56B37311B66C3FD0015678A /* TabBarController.swift in Sources */,
 				E56B37581B66F17B0015678A /* Song.swift in Sources */,
@@ -376,6 +383,7 @@
 				E5ED4E461B696FBA001889C8 /* RecordButton.swift in Sources */,
 				E56B370B1B66C3540015678A /* AppDelegate.swift in Sources */,
 				E50BE9671B6835C30076E83F /* SoundRecorder.swift in Sources */,
+				E51AA0901B6FDC320068DF8B /* UserTableViewController.swift in Sources */,
 				E5ED4EA91B6BDEEB001889C8 /* LoginViewController.swift in Sources */,
 				E56B37561B66EBE40015678A /* MainTableViewController.swift in Sources */,
 			);
