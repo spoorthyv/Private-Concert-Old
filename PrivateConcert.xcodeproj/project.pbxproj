@@ -40,16 +40,16 @@
 		E56B37531B66E7850015678A /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E56B37521B66E7850015678A /* libsqlite3.dylib */; };
 		E56B37561B66EBE40015678A /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B37551B66EBE40015678A /* MainTableViewController.swift */; };
 		E56B37581B66F17B0015678A /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B37571B66F17B0015678A /* Song.swift */; };
+		E59293CC1B715FA900162471 /* DismissSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59293CB1B715FA900162471 /* DismissSegue.swift */; };
 		E5ED4E461B696FBA001889C8 /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ED4E451B696FBA001889C8 /* RecordButton.swift */; };
 		E5ED4E4B1B697DC4001889C8 /* pier-bold-italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E5ED4E471B697DC4001889C8 /* pier-bold-italic.otf */; };
 		E5ED4E4C1B697DC4001889C8 /* pier-bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E5ED4E481B697DC4001889C8 /* pier-bold.otf */; };
 		E5ED4E4D1B697DC4001889C8 /* pier-italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E5ED4E491B697DC4001889C8 /* pier-italic.otf */; };
 		E5ED4E4E1B697DC4001889C8 /* pier-regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E5ED4E4A1B697DC4001889C8 /* pier-regular.otf */; };
 		E5ED4EA91B6BDEEB001889C8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ED4EA81B6BDEEB001889C8 /* LoginViewController.swift */; };
-		E5ED4EAB1B6BE41B001889C8 /* CustomLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ED4EAA1B6BE41B001889C8 /* CustomLoginViewController.swift */; };
-		E5ED4EAD1B6BE48D001889C8 /* CustomSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ED4EAC1B6BE48D001889C8 /* CustomSignupViewController.swift */; };
 		E5ED4EAF1B6BE650001889C8 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5ED4EAE1B6BE650001889C8 /* Social.framework */; };
 		E5ED4EB11B6BE663001889C8 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5ED4EB01B6BE663001889C8 /* Accounts.framework */; };
+		E5FB70371B73C5CF0028EC0B /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FB70361B73C5CF0028EC0B /* PopupViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,16 +100,16 @@
 		E56B37521B66E7850015678A /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		E56B37551B66EBE40015678A /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		E56B37571B66F17B0015678A /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		E59293CB1B715FA900162471 /* DismissSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissSegue.swift; sourceTree = "<group>"; };
 		E5ED4E451B696FBA001889C8 /* RecordButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
 		E5ED4E471B697DC4001889C8 /* pier-bold-italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pier-bold-italic.otf"; sourceTree = "<group>"; };
 		E5ED4E481B697DC4001889C8 /* pier-bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pier-bold.otf"; sourceTree = "<group>"; };
 		E5ED4E491B697DC4001889C8 /* pier-italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pier-italic.otf"; sourceTree = "<group>"; };
 		E5ED4E4A1B697DC4001889C8 /* pier-regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pier-regular.otf"; sourceTree = "<group>"; };
 		E5ED4EA81B6BDEEB001889C8 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		E5ED4EAA1B6BE41B001889C8 /* CustomLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoginViewController.swift; sourceTree = "<group>"; };
-		E5ED4EAC1B6BE48D001889C8 /* CustomSignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSignupViewController.swift; sourceTree = "<group>"; };
 		E5ED4EAE1B6BE650001889C8 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		E5ED4EB01B6BE663001889C8 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		E5FB70361B73C5CF0028EC0B /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +161,8 @@
 		E50BE9651B6835A00076E83F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E50BE95F1B67E0680076E83F /* MainTableViewCell.swift */,
+				E51AA08B1B6FDC010068DF8B /* UserTableViewCell.swift */,
 				E50BE9631B68034F0076E83F /* MediaButton.swift */,
 				E5ED4E451B696FBA001889C8 /* RecordButton.swift */,
 				E56B37571B66F17B0015678A /* Song.swift */,
@@ -192,14 +194,12 @@
 			children = (
 				E56B370E1B66C3540015678A /* Main.storyboard */,
 				E5ED4EA81B6BDEEB001889C8 /* LoginViewController.swift */,
-				E5ED4EAA1B6BE41B001889C8 /* CustomLoginViewController.swift */,
-				E5ED4EAC1B6BE48D001889C8 /* CustomSignupViewController.swift */,
 				E50BE9661B6835C30076E83F /* SoundRecorder.swift */,
-				E51AA08F1B6FDC320068DF8B /* UserTableViewController.swift */,
-				E51AA08B1B6FDC010068DF8B /* UserTableViewCell.swift */,
+				E5FB70361B73C5CF0028EC0B /* PopupViewController.swift */,
 				E56B37551B66EBE40015678A /* MainTableViewController.swift */,
-				E50BE95F1B67E0680076E83F /* MainTableViewCell.swift */,
+				E51AA08F1B6FDC320068DF8B /* UserTableViewController.swift */,
 				E56B37301B66C3FD0015678A /* TabBarController.swift */,
+				E59293CB1B715FA900162471 /* DismissSegue.swift */,
 				E56B37321B66C42C0015678A /* NavigationSegue.swift */,
 				E56B370A1B66C3540015678A /* AppDelegate.swift */,
 				E50BE9651B6835A00076E83F /* Models */,
@@ -370,8 +370,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E56B372D1B66C3D90015678A /* SecondViewController.swift in Sources */,
-				E5ED4EAB1B6BE41B001889C8 /* CustomLoginViewController.swift in Sources */,
 				E56B372B1B66C3C60015678A /* FirstViewController.swift in Sources */,
+				E5FB70371B73C5CF0028EC0B /* PopupViewController.swift in Sources */,
 				E50BE9641B68034F0076E83F /* MediaButton.swift in Sources */,
 				E51AA08C1B6FDC010068DF8B /* UserTableViewCell.swift in Sources */,
 				E56B372F1B66C3E50015678A /* ThirdViewController.swift in Sources */,
@@ -379,12 +379,12 @@
 				E56B37581B66F17B0015678A /* Song.swift in Sources */,
 				E56B37331B66C42C0015678A /* NavigationSegue.swift in Sources */,
 				E50BE9601B67E0680076E83F /* MainTableViewCell.swift in Sources */,
-				E5ED4EAD1B6BE48D001889C8 /* CustomSignupViewController.swift in Sources */,
 				E5ED4E461B696FBA001889C8 /* RecordButton.swift in Sources */,
 				E56B370B1B66C3540015678A /* AppDelegate.swift in Sources */,
 				E50BE9671B6835C30076E83F /* SoundRecorder.swift in Sources */,
 				E51AA0901B6FDC320068DF8B /* UserTableViewController.swift in Sources */,
 				E5ED4EA91B6BDEEB001889C8 /* LoginViewController.swift in Sources */,
+				E59293CC1B715FA900162471 /* DismissSegue.swift in Sources */,
 				E56B37561B66EBE40015678A /* MainTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

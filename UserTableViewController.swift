@@ -24,8 +24,8 @@ class UserTableViewController: UITableViewController, AVAudioPlayerDelegate {
     var tagsArray = [String]()
     
     //images
-    let playImage = UIImage(named: "GreenPlay") as UIImage?
-    let pauseImage = UIImage(named: "PurplePause") as UIImage?
+    let playImage = UIImage(named: "Play1") as UIImage?
+    let pauseImage = UIImage(named: "Pause1") as UIImage?
     
     var isPaused = true
     

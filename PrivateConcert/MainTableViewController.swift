@@ -17,15 +17,14 @@ class MainTableViewController: UITableViewController, AVAudioPlayerDelegate {
     
     var session: AVAudioSession = AVAudioSession.sharedInstance()
     var AudioPlayer = AVPlayer()
-    var selectedSongNumber = Int()
     
     var IDArray = [String]()
     var nameArray = [String]()
     var tagsArray = [String]()
     
-    //images
-    let playImage = UIImage(named: "GreenPlay") as UIImage?
-    let pauseImage = UIImage(named: "PurplePause") as UIImage?
+
+//    let playImage = UIImage(named: "Play1") as UIImage?
+//    let pauseImage = UIImage(named: "Pause1") as UIImage?
 
     var isPaused = true
 
@@ -41,15 +40,21 @@ class MainTableViewController: UITableViewController, AVAudioPlayerDelegate {
             
             NSLog("\(objectIDs)")
             
-            for i in 0...objectIDs.count-1 {
-                self.IDArray.append(objectIDs[i].valueForKey("objectId") as! String)
-                self.nameArray.append(objectIDs[i].valueForKey("songName") as! String)
-                self.tagsArray.append(self.convertTagsToString(objectIDs[i].valueForKey("tags") as! [String]))
-                println(objectIDs[i].valueForKey("tags") as! [String])
-                self.tableView.reloadData()
+            if objectIDs.count > 0 {
+                for i in 0...objectIDs.count-1 {
+                    self.IDArray.append(objectIDs[i].valueForKey("objectId") as! String)
+                    self.nameArray.append(objectIDs[i].valueForKey("songName") as! String)
+                    self.tagsArray.append(self.convertTagsToString(objectIDs[i].valueForKey("tags") as! [String]))
+                    println(objectIDs[i].valueForKey("tags") as! [String])
+                    self.tableView.reloadData()
+                }
             }
         })
-        // Do any additional setup after loading the view, typically from a nib.
+        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        self.tableView.reloadData()
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -63,7 +68,6 @@ class MainTableViewController: UITableViewController, AVAudioPlayerDelegate {
         cell.titleLabel?.text = nameArray[indexPath.row]
         cell.tagsLabel?.text = tagsArray[indexPath.row]
         
-        selectedSongNumber = indexPath.row
         cell.playButton.cellRow = indexPath.row
         cell.playButton.addTarget(self, action: "playPause:", forControlEvents: .TouchUpInside)
         
@@ -71,9 +75,14 @@ class MainTableViewController: UITableViewController, AVAudioPlayerDelegate {
     }
     
     func convertTagsToString(tagArray: [String]) -> String{
-        var tempString = tagArray[0]
-        for var i = 1; i < tagArray.count; i++ {
-            tempString += "  |  " + tagArray[i]
+        var tempString = ""
+        if tagArray.count == 0 {
+            return ""
+        }
+        for i in 0...tagArray.count-1 {
+            if tagArray[i] != "" {
+                tempString = tagArray[i] + " | "
+            }
         }
         return tempString
     }
@@ -81,7 +90,6 @@ class MainTableViewController: UITableViewController, AVAudioPlayerDelegate {
     func grabSong(songNumber: Int){
         self.session.setCategory(AVAudioSessionCategoryPlayback, error: nil)
         var songQuery = PFQuery(className: "Song")
-        //println(selectedSongNumber)
         songQuery.getObjectInBackgroundWithId(IDArray[songNumber], block: {
             (object: PFObject?, error: NSError?) -> Void in
             if let AudioFileURLTemp = object?.objectForKey("songFile")?.url{
@@ -106,10 +114,6 @@ class MainTableViewController: UITableViewController, AVAudioPlayerDelegate {
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        selectedSongNumber = indexPath.row
-        println(selectedSongNumber)
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

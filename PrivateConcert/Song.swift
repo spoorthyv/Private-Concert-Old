@@ -17,12 +17,12 @@ class Song: NSObject {
     var user: PFUser
     
     //change audio later
-    var audio: String
+    var audio: NSData
     
-    init (title: String, tags: [String]) {
+    init (title: String, tags: [String], musicData: NSData) {
         self.name = title
         self.tags = tags
-        self.audio = "Blank"
+        self.audio = NSData()
         self.score = 0
         self.user = PFUser.currentUser()!
     }

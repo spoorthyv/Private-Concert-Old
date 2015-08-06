@@ -11,8 +11,8 @@ import UIKit
 class MediaButton: UIButton {
 
     //images
-    let playImage = UIImage(named: "GreenPlay") as UIImage?
-    let pauseImage = UIImage(named: "PurplePause") as UIImage?
+    let playImage = UIImage(named: "Play1") as UIImage?
+    let pauseImage = UIImage(named: "Pause2") as UIImage?
     var cellRow: Int = 0
     
     
