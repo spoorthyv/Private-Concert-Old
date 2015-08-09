@@ -9,8 +9,6 @@
 import Foundation
 import UIKit
 
-public var hasPopup = false
-
 class NavigationSegue: UIStoryboardSegue {
     
     override func perform() {
@@ -18,6 +16,7 @@ class NavigationSegue: UIStoryboardSegue {
         if (hasPopup) {
             
         } else {
+            isPaused = true
             let tabBarController = self.sourceViewController as! TabBarController
             let destinationController = self.destinationViewController as! UIViewController
             

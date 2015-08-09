@@ -10,15 +10,23 @@ import UIKit
 import Parse
 import AVFoundation
 
-
-
-class PopupViewController: UIViewController {
+class PopupViewController: UIViewController, UITextFieldDelegate {
     var exSong = Song(title: "", tags: [], musicData: NSData())
     
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var tagField1: UITextField!
     @IBOutlet weak var tagField2: UITextField!
     @IBOutlet weak var tagField3: UITextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        titleField.delegate = self
+        tagField1.delegate = self
+        tagField2.delegate = self
+        tagField3.delegate = self
+    }
+
     
     
     func uploadSong(obj: Song) {
@@ -30,7 +38,6 @@ class PopupViewController: UIViewController {
         className.saveInBackgroundWithBlock {
             (success: Bool, error: NSError?) -> Void in
             if success == true {
-                //let audioFile = PFFile(name: "demo.caf", data: NSData(contentsOfURL: self.getFileURL())!)
                 let audioFile = PFFile(name: "demo.caf", data: self.exSong.audio)
                 className["songFile"] = audioFile
                 className.saveInBackgroundWithBlock{(success: Bool, error: NSError?) -> Void in
@@ -40,10 +47,12 @@ class PopupViewController: UIViewController {
                         println("posted successfully")
                     }
                 }
+                
             } else {
                 println(error)
             }
         }
+        
     }
     
     @IBAction func cancelButtonPressed(sender: AnyObject) {
@@ -69,6 +78,15 @@ class PopupViewController: UIViewController {
         
         uploadSong(exSong)
         performSegueWithIdentifier("cancelPopup", sender: self)
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        self.view.endEditing(true)
     }
 
     

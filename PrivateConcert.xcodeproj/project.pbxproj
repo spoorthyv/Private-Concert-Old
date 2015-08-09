@@ -17,8 +17,6 @@
 		E56B37121B66C3540015678A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E56B37111B66C3540015678A /* Images.xcassets */; };
 		E56B37151B66C3540015678A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E56B37131B66C3540015678A /* LaunchScreen.xib */; };
 		E56B37211B66C3540015678A /* PrivateConcertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B37201B66C3540015678A /* PrivateConcertTests.swift */; };
-		E56B372B1B66C3C60015678A /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B372A1B66C3C60015678A /* FirstViewController.swift */; };
-		E56B372D1B66C3D90015678A /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B372C1B66C3D90015678A /* SecondViewController.swift */; };
 		E56B372F1B66C3E50015678A /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B372E1B66C3E40015678A /* ThirdViewController.swift */; };
 		E56B37311B66C3FD0015678A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B37301B66C3FD0015678A /* TabBarController.swift */; };
 		E56B37331B66C42C0015678A /* NavigationSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B37321B66C42C0015678A /* NavigationSegue.swift */; };
@@ -77,8 +75,6 @@
 		E56B371A1B66C3540015678A /* PrivateConcertTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrivateConcertTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E56B371F1B66C3540015678A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E56B37201B66C3540015678A /* PrivateConcertTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateConcertTests.swift; sourceTree = "<group>"; };
-		E56B372A1B66C3C60015678A /* FirstViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		E56B372C1B66C3D90015678A /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		E56B372E1B66C3E40015678A /* ThirdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		E56B37301B66C3FD0015678A /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		E56B37321B66C42C0015678A /* NavigationSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationSegue.swift; sourceTree = "<group>"; };
@@ -148,16 +144,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E50BE95E1B67DE490076E83F /* Page View Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				E56B372A1B66C3C60015678A /* FirstViewController.swift */,
-				E56B372C1B66C3D90015678A /* SecondViewController.swift */,
-				E56B372E1B66C3E40015678A /* ThirdViewController.swift */,
-			);
-			name = "Page View Controllers";
-			sourceTree = "<group>";
-		};
 		E50BE9651B6835A00076E83F /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,10 +159,10 @@
 		E56B36FC1B66C3540015678A = {
 			isa = PBXGroup;
 			children = (
-				E56B37541B66E7B20015678A /* Frameworks */,
 				E56B37071B66C3540015678A /* PrivateConcert */,
 				E56B371D1B66C3540015678A /* PrivateConcertTests */,
 				E56B37061B66C3540015678A /* Products */,
+				E56B37541B66E7B20015678A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -193,17 +179,10 @@
 			isa = PBXGroup;
 			children = (
 				E56B370E1B66C3540015678A /* Main.storyboard */,
-				E5ED4EA81B6BDEEB001889C8 /* LoginViewController.swift */,
-				E50BE9661B6835C30076E83F /* SoundRecorder.swift */,
-				E5FB70361B73C5CF0028EC0B /* PopupViewController.swift */,
-				E56B37551B66EBE40015678A /* MainTableViewController.swift */,
-				E51AA08F1B6FDC320068DF8B /* UserTableViewController.swift */,
-				E56B37301B66C3FD0015678A /* TabBarController.swift */,
-				E59293CB1B715FA900162471 /* DismissSegue.swift */,
-				E56B37321B66C42C0015678A /* NavigationSegue.swift */,
 				E56B370A1B66C3540015678A /* AppDelegate.swift */,
+				E577502D1B75765A00F9E336 /* ViewControllers */,
+				E577502C1B75763900F9E336 /* Segues */,
 				E50BE9651B6835A00076E83F /* Models */,
-				E50BE95E1B67DE490076E83F /* Page View Controllers */,
 				E56B37081B66C3540015678A /* Supporting Files */,
 				E56B37111B66C3540015678A /* Images.xcassets */,
 				E56B37131B66C3540015678A /* LaunchScreen.xib */,
@@ -263,6 +242,29 @@
 				E56B37401B66E72E0015678A /* AudioToolbox.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E577502C1B75763900F9E336 /* Segues */ = {
+			isa = PBXGroup;
+			children = (
+				E59293CB1B715FA900162471 /* DismissSegue.swift */,
+				E56B37321B66C42C0015678A /* NavigationSegue.swift */,
+			);
+			name = Segues;
+			sourceTree = "<group>";
+		};
+		E577502D1B75765A00F9E336 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E5ED4EA81B6BDEEB001889C8 /* LoginViewController.swift */,
+				E56B37301B66C3FD0015678A /* TabBarController.swift */,
+				E56B37551B66EBE40015678A /* MainTableViewController.swift */,
+				E51AA08F1B6FDC320068DF8B /* UserTableViewController.swift */,
+				E50BE9661B6835C30076E83F /* SoundRecorder.swift */,
+				E5FB70361B73C5CF0028EC0B /* PopupViewController.swift */,
+				E56B372E1B66C3E40015678A /* ThirdViewController.swift */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -369,8 +371,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E56B372D1B66C3D90015678A /* SecondViewController.swift in Sources */,
-				E56B372B1B66C3C60015678A /* FirstViewController.swift in Sources */,
 				E5FB70371B73C5CF0028EC0B /* PopupViewController.swift in Sources */,
 				E50BE9641B68034F0076E83F /* MediaButton.swift in Sources */,
 				E51AA08C1B6FDC010068DF8B /* UserTableViewCell.swift in Sources */,

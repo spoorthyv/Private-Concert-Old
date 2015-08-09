@@ -10,6 +10,15 @@ import UIKit
 import Parse
 import Bolts
 
+//var nameOfApp = "AdWDAWD"
+
+public var hasPopup = false
+
+public var isPaused = true
+
+public var currRow = -1
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -19,8 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
-        
-        Parse.enableLocalDatastore()
         
         // Initialize Parse.
         Parse.setApplicationId("XJIzw2OrfHYRDaSfWh3mOE5mPzscDFvDJwTIRPR3",

@@ -15,17 +15,25 @@ class MediaButton: UIButton {
     let pauseImage = UIImage(named: "Pause2") as UIImage?
     var cellRow: Int = 0
     
+    func buttonClicked (sender: UIButton) {
+        
+        if (sender == self) {
+            if isPaused == false {
+                isPaused = true
+            } else {
+                isPaused = false
+            }
+        }
+    }
+    
     
     //setting Boolean
-    var isPaused: Bool = true{
-        didSet{
-            if isPaused == false{
+    var isPaused: Bool = true {
+        didSet {
+            if isPaused == false {
                 self.setImage(pauseImage, forState: .Normal)
-                //self.setTitle("", forState: .Normal)
-                
             } else {
                 self.setImage(playImage, forState: .Normal)
-                //self.setTitle("", forState: .Normal)
             }
             
         }
@@ -36,23 +44,11 @@ class MediaButton: UIButton {
     //load Nib . . .
     override func awakeFromNib() {
         self.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.isPaused = true
+        isPaused = true
     }
     
     
-    func buttonClicked (sender: UIButton){
-                
-        if(sender == self)
-         {
-           if isPaused == false
-         {
-            isPaused = true
-                        
-            } else{
-                 isPaused = false
-             }
-           }
-        }
+    
     
     
     /*
