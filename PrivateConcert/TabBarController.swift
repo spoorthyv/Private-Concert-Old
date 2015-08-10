@@ -35,16 +35,18 @@ class TabBarController: UIViewController {
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        let availableIdentifiers = ["FirstVCIdentifier", "SecondVCIdentifier", "ThirdVCIdentifier"]
+        let availableIdentifiers = ["FirstVCIdentifier", "SecondVCIdentifier"]
         
         if(!hasPopup && contains(availableIdentifiers, segue.identifier!)) {
             
             for btn in tabBarButtons {
                 btn.selected = false
+                btn.backgroundColor = UIColor(red: 110/255, green: 189/255, blue: 230/255, alpha: 1.0)
             }
             
             let senderBtn = sender as! UIButton
             senderBtn.selected = true
+            senderBtn.backgroundColor = UIColor.whiteColor()
             
         }
     }
