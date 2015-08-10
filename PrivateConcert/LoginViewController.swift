@@ -17,9 +17,6 @@ class LoginViewController: UIViewController, PFLogInViewControllerDelegate, PFSi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -27,9 +24,11 @@ class LoginViewController: UIViewController, PFLogInViewControllerDelegate, PFSi
         if(PFUser.currentUser() == nil) {
             self.logInViewController.fields = PFLogInFields.UsernameAndPassword | PFLogInFields.LogInButton | PFLogInFields.SignUpButton | PFLogInFields.PasswordForgotten | PFLogInFields.DismissButton
             
-            var logInLogoTitle = UILabel()
-            logInLogoTitle.text = "Private Concert"
-            self.logInViewController.logInView?.logo = logInLogoTitle
+            var logoView = UIImageView(image: UIImage(named:"loginTitle"))
+            //logoView.contentMode = UIViewContentMode.ScaleAspectFit
+            
+            self.logInViewController.logInView?.logo = logoView
+            
             self.logInViewController.delegate = self
             
             var signUpLogoTitle = UILabel()

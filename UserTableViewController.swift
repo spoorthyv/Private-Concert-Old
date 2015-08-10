@@ -23,7 +23,6 @@ class UserTableViewController: UITableViewController, AVAudioPlayerDelegate {
     var nameArray = [String]()
     var tagsArray = [String]()
     
-    //images
     let playImage = UIImage(named: "Play1") as UIImage?
     let pauseImage = UIImage(named: "Pause1") as UIImage?
     
@@ -75,7 +74,7 @@ class UserTableViewController: UITableViewController, AVAudioPlayerDelegate {
         
         selectedSongNumber = indexPath.row
         cell.playButton.cellRow = indexPath.row
-        cell.playButton.addTarget(self, action: "playPause:", forControlEvents: .TouchUpInside)
+        //cell.playButton.addTarget(self, action: "playPause:", forControlEvents: .TouchUpInside)
         
         return cell
     }
@@ -115,9 +114,14 @@ class UserTableViewController: UITableViewController, AVAudioPlayerDelegate {
         }
     }
     
+
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         selectedSongNumber = indexPath.row
         println(selectedSongNumber)
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
     }
     
     override func didReceiveMemoryWarning() {

@@ -15,8 +15,21 @@ class MediaButton: UIButton {
     let pauseImage = UIImage(named: "Pause2") as UIImage?
     var cellRow: Int = 0
     
+    //setting Boolean
+    var isPaused: Bool = true {
+        didSet {
+            if isPaused == false {
+                self.setImage(pauseImage, forState: .Normal)
+                println("Row \(cellRow) is paused")
+            } else {
+                self.setImage(playImage, forState: .Normal)
+            }
+        }
+    }
+    
     func buttonClicked (sender: UIButton) {
-        
+        currRow = cellRow
+        println(currRow)
         if (sender == self) {
             if isPaused == false {
                 isPaused = true
@@ -24,20 +37,6 @@ class MediaButton: UIButton {
                 isPaused = false
             }
         }
-    }
-    
-    
-    //setting Boolean
-    var isPaused: Bool = true {
-        didSet {
-            if isPaused == false {
-                self.setImage(pauseImage, forState: .Normal)
-            } else {
-                self.setImage(playImage, forState: .Normal)
-            }
-            
-        }
-        
     }
     
     

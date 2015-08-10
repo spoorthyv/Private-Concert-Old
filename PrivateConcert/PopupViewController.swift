@@ -47,7 +47,6 @@ class PopupViewController: UIViewController, UITextFieldDelegate {
                         println("posted successfully")
                     }
                 }
-                
             } else {
                 println(error)
             }

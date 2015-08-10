@@ -23,10 +23,10 @@ class SoundRecorder: UIViewController, AVAudioRecorderDelegate {
     var exSong = Song(title: "", tags: [], musicData: NSData())
     let fileName = "demo.caf"
     
+    //When view loads, setup audio recorder
     override func viewDidLoad() {
         super.viewDidLoad()
         setupRecorder()
-        println("\(getCacheDirectory())")
     }
     
     //creates an AVAudioRecorder object with the correct settings. Gives it a URL and settings
@@ -95,19 +95,17 @@ class SoundRecorder: UIViewController, AVAudioRecorderDelegate {
         }
     }
     
+    //When audio finished saving locally, save the audio file and perform segue to PopupViewController
+    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {
+        exSong.audio = NSData(contentsOfURL: getFileURL())!
+        performSegueWithIdentifier("showPopup", sender: self)
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showPopup" {
             let popupVC: PopupViewController = segue.destinationViewController as! PopupViewController
             popupVC.exSong = exSong
         }
-    }
-    
-    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {
-        exSong.audio = NSData(contentsOfURL: getFileURL())!
-        
-        performSegueWithIdentifier("showPopup", sender: self)
-        
-        
     }
     
     //Useless stuff

@@ -11,7 +11,7 @@ import Parse
 import AVFoundation
 import AVKit
 
-class MainTableViewController: UITableViewController, AVAudioPlayerDelegate {
+class MainTableViewController: UITableViewController {
     
     var grayBackroundColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
     
@@ -79,6 +79,7 @@ class MainTableViewController: UITableViewController, AVAudioPlayerDelegate {
         cell.playButton.addTarget(self, action: "playPause:", forControlEvents: .TouchUpInside)
         
         return cell
+        
     }
     
     //Converts array of strings into one String with tags seperated by " | "
@@ -106,10 +107,23 @@ class MainTableViewController: UITableViewController, AVAudioPlayerDelegate {
         songQuery.getObjectInBackgroundWithId(IDArray[songNumber], block: {
             (object: PFObject?, error: NSError?) -> Void in
             if let AudioFileURLTemp = object?.objectForKey("songFile")?.url{
-                self.AudioPlayer = AVPlayer(URL: NSURL(string: AudioFileURLTemp!))
+                //self.AudioPlayer = AVPlayer(URL: NSURL(string: AudioFileURLTemp!))
+                let item = AVPlayerItem(URL: NSURL(string: AudioFileURLTemp!))
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerDidFinishPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: item)
+                self.AudioPlayer = AVPlayer(playerItem: item)
                 self.AudioPlayer.play()
             }
         })
+    }
+    
+    func playerDidFinishPlaying(note: NSNotification) {
+        println("swag sauce")
+        
+        println("\(currRow)")
+        var cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: currRow, inSection: 0))  as! MainTableViewCell
+        cell.playButton.isPaused = true
+        cell.playButton.setImage(UIImage(named: "Play1") as UIImage?, forState: .Normal)
+        isPaused = true
     }
     
     //pauses song
@@ -128,29 +142,37 @@ class MainTableViewController: UITableViewController, AVAudioPlayerDelegate {
             isPaused = true
         
         }
-    
-    
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
-        var cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(index: currRow))  as! MainTableViewCell
-        cell.playButton.isPaused = true
-        cell.playButton.setImage(UIImage(named: "Play1") as UIImage?, forState: .Normal)
-        isPaused = true
     }
     
     
-    func didReceiveMemoryWarning() {
+//    func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
+//        println("\(currRow)")
+//        var cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(index: currRow))  as! MainTableViewCell
+//        cell.playButton.isPaused = true
+//        cell.playButton.setImage(UIImage(named: "Play1") as UIImage?, forState: .Normal)
+//        isPaused = true
+//    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var cell = self.tableView.cellForRowAtIndexPath(indexPath) as! MainTableViewCell
+        println("\(cell.playButton.cellRow)")
+        
+    }
+    
+    override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    func tableView(_tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-            if cell.respondsToSelector("setSeparatorInset:") {
-                cell.separatorInset = UIEdgeInsetsZero
-            }
-            if cell.respondsToSelector("setLayoutMargins:") {
-                cell.layoutMargins = UIEdgeInsetsZero
-            }
-            if cell.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
-                cell.preservesSuperviewLayoutMargins = false
-            }
+    
+    override func tableView(_tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if cell.respondsToSelector("setSeparatorInset:") {
+            cell.separatorInset = UIEdgeInsetsZero
+        }
+        if cell.respondsToSelector("setLayoutMargins:") {
+            cell.layoutMargins = UIEdgeInsetsZero
+        }
+        if cell.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
+            cell.preservesSuperviewLayoutMargins = false
+        }
     }
     
-    }}
+    }

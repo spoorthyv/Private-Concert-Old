@@ -38,6 +38,10 @@
 		E56B37531B66E7850015678A /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E56B37521B66E7850015678A /* libsqlite3.dylib */; };
 		E56B37561B66EBE40015678A /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B37551B66EBE40015678A /* MainTableViewController.swift */; };
 		E56B37581B66F17B0015678A /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B37571B66F17B0015678A /* Song.swift */; };
+		E57750311B77D76600F9E336 /* TitleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57750301B77D76600F9E336 /* TitleTextField.swift */; };
+		E57750331B77DA7300F9E336 /* TagTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57750321B77DA7300F9E336 /* TagTextField.swift */; };
+		E57750351B77DAB500F9E336 /* CancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57750341B77DAB500F9E336 /* CancelButton.swift */; };
+		E57750371B77DC2300F9E336 /* SaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57750361B77DC2300F9E336 /* SaveButton.swift */; };
 		E59293CC1B715FA900162471 /* DismissSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59293CB1B715FA900162471 /* DismissSegue.swift */; };
 		E5ED4E461B696FBA001889C8 /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ED4E451B696FBA001889C8 /* RecordButton.swift */; };
 		E5ED4E4B1B697DC4001889C8 /* pier-bold-italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E5ED4E471B697DC4001889C8 /* pier-bold-italic.otf */; };
@@ -96,6 +100,10 @@
 		E56B37521B66E7850015678A /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		E56B37551B66EBE40015678A /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		E56B37571B66F17B0015678A /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		E57750301B77D76600F9E336 /* TitleTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleTextField.swift; sourceTree = "<group>"; };
+		E57750321B77DA7300F9E336 /* TagTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagTextField.swift; sourceTree = "<group>"; };
+		E57750341B77DAB500F9E336 /* CancelButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelButton.swift; sourceTree = "<group>"; };
+		E57750361B77DC2300F9E336 /* SaveButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveButton.swift; sourceTree = "<group>"; };
 		E59293CB1B715FA900162471 /* DismissSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissSegue.swift; sourceTree = "<group>"; };
 		E5ED4E451B696FBA001889C8 /* RecordButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
 		E5ED4E471B697DC4001889C8 /* pier-bold-italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pier-bold-italic.otf"; sourceTree = "<group>"; };
@@ -147,11 +155,15 @@
 		E50BE9651B6835A00076E83F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E56B37571B66F17B0015678A /* Song.swift */,
 				E50BE95F1B67E0680076E83F /* MainTableViewCell.swift */,
 				E51AA08B1B6FDC010068DF8B /* UserTableViewCell.swift */,
 				E50BE9631B68034F0076E83F /* MediaButton.swift */,
 				E5ED4E451B696FBA001889C8 /* RecordButton.swift */,
-				E56B37571B66F17B0015678A /* Song.swift */,
+				E57750341B77DAB500F9E336 /* CancelButton.swift */,
+				E57750361B77DC2300F9E336 /* SaveButton.swift */,
+				E57750301B77D76600F9E336 /* TitleTextField.swift */,
+				E57750321B77DA7300F9E336 /* TagTextField.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -259,8 +271,8 @@
 				E5ED4EA81B6BDEEB001889C8 /* LoginViewController.swift */,
 				E56B37301B66C3FD0015678A /* TabBarController.swift */,
 				E56B37551B66EBE40015678A /* MainTableViewController.swift */,
-				E51AA08F1B6FDC320068DF8B /* UserTableViewController.swift */,
 				E50BE9661B6835C30076E83F /* SoundRecorder.swift */,
+				E51AA08F1B6FDC320068DF8B /* UserTableViewController.swift */,
 				E5FB70361B73C5CF0028EC0B /* PopupViewController.swift */,
 				E56B372E1B66C3E40015678A /* ThirdViewController.swift */,
 			);
@@ -316,6 +328,7 @@
 				TargetAttributes = {
 					E56B37041B66C3540015678A = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = S3J35D8UHR;
 					};
 					E56B37191B66C3540015678A = {
 						CreatedOnToolsVersion = 6.4;
@@ -378,13 +391,17 @@
 				E56B37311B66C3FD0015678A /* TabBarController.swift in Sources */,
 				E56B37581B66F17B0015678A /* Song.swift in Sources */,
 				E56B37331B66C42C0015678A /* NavigationSegue.swift in Sources */,
+				E57750311B77D76600F9E336 /* TitleTextField.swift in Sources */,
 				E50BE9601B67E0680076E83F /* MainTableViewCell.swift in Sources */,
 				E5ED4E461B696FBA001889C8 /* RecordButton.swift in Sources */,
 				E56B370B1B66C3540015678A /* AppDelegate.swift in Sources */,
 				E50BE9671B6835C30076E83F /* SoundRecorder.swift in Sources */,
 				E51AA0901B6FDC320068DF8B /* UserTableViewController.swift in Sources */,
 				E5ED4EA91B6BDEEB001889C8 /* LoginViewController.swift in Sources */,
+				E57750351B77DAB500F9E336 /* CancelButton.swift in Sources */,
 				E59293CC1B715FA900162471 /* DismissSegue.swift in Sources */,
+				E57750331B77DA7300F9E336 /* TagTextField.swift in Sources */,
+				E57750371B77DC2300F9E336 /* SaveButton.swift in Sources */,
 				E56B37561B66EBE40015678A /* MainTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -514,6 +531,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PrivateConcert",
@@ -528,6 +546,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PrivateConcert",
