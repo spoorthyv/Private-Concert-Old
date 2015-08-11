@@ -143,17 +143,10 @@ class MainTableViewController: UITableViewController {
         
         }
     }
-    
-    
-//    func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
-//        println("\(currRow)")
-//        var cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(index: currRow))  as! MainTableViewCell
-//        cell.playButton.isPaused = true
-//        cell.playButton.setImage(UIImage(named: "Play1") as UIImage?, forState: .Normal)
-//        isPaused = true
-//    }
-    
+
+       
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        println("index row = \(indexPath.row)")
         var cell = self.tableView.cellForRowAtIndexPath(indexPath) as! MainTableViewCell
         println("\(cell.playButton.cellRow)")
         
@@ -163,16 +156,16 @@ class MainTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
     
-    override func tableView(_tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if cell.respondsToSelector("setSeparatorInset:") {
-            cell.separatorInset = UIEdgeInsetsZero
-        }
-        if cell.respondsToSelector("setLayoutMargins:") {
-            cell.layoutMargins = UIEdgeInsetsZero
-        }
-        if cell.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
-            cell.preservesSuperviewLayoutMargins = false
-        }
-    }
+//    override func tableView(_tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+//        if cell.respondsToSelector("setSeparatorInset:") {
+//            cell.separatorInset = UIEdgeInsetsZero
+//        }
+//        if cell.respondsToSelector("setLayoutMargins:") {
+//            cell.layoutMargins = UIEdgeInsetsZero
+//        }
+//        if cell.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
+//            cell.preservesSuperviewLayoutMargins = false
+//        }
+//    }
     
     }
