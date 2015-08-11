@@ -75,11 +75,49 @@ class MainTableViewController: UITableViewController {
         cell.titleLabel?.text = nameArray[indexPath.row]
         cell.tagsLabel?.text = tagsArray[indexPath.row]
         
-        cell.playButton.cellRow = indexPath.row
+        cell.playButton.buttonRow = indexPath.row
+        
+        println("Button index: \(cell.playButton.buttonRow), Cell index: \(indexPath.row)")
+        
         cell.playButton.addTarget(self, action: "playPause:", forControlEvents: .TouchUpInside)
+        
+        setImage(cell)
         
         return cell
         
+    }
+    
+    func setImage(cell: MainTableViewCell){
+        if cell.playButton.buttonRow == currRow {
+            cell.playButton.setImage(UIImage(named: "Pause2") as UIImage?, forState: .Normal)
+            //cell.playButton.isPaused = true
+        } else {
+            cell.playButton.setImage(UIImage(named: "Play1") as UIImage?, forState: .Normal)
+            //cell.playButton.isPaused = false
+        }
+    }
+    
+    //If the button is clicked, then either play the media associated with its cell or pause the player
+    func playPause(sender:MediaButton) {
+       
+        let button = sender as MediaButton
+        let view = button.superview!
+        let cell = view.superview as! MainTableViewCell
+        
+        let indexPath = tableView.indexPathForCell(cell)
+        
+        if (isPaused) {
+            grabSong(sender.buttonRow)
+            isPaused = false
+            sender.setImage(UIImage(named: "Pause2") as UIImage?, forState: .Normal)
+            currRow = sender.buttonRow
+            
+        } else {
+            self.AudioPlayer.pause()
+            isPaused = true
+            sender.setImage(UIImage(named: "Play1") as UIImage?, forState: .Normal)
+            
+        }
     }
     
     //Converts array of strings into one String with tags seperated by " | "
@@ -107,7 +145,6 @@ class MainTableViewController: UITableViewController {
         songQuery.getObjectInBackgroundWithId(IDArray[songNumber], block: {
             (object: PFObject?, error: NSError?) -> Void in
             if let AudioFileURLTemp = object?.objectForKey("songFile")?.url{
-                //self.AudioPlayer = AVPlayer(URL: NSURL(string: AudioFileURLTemp!))
                 let item = AVPlayerItem(URL: NSURL(string: AudioFileURLTemp!))
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerDidFinishPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: item)
                 self.AudioPlayer = AVPlayer(playerItem: item)
@@ -117,38 +154,28 @@ class MainTableViewController: UITableViewController {
     }
     
     func playerDidFinishPlaying(note: NSNotification) {
-        println("swag sauce")
-        
-        println("\(currRow)")
-        var cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: currRow, inSection: 0))  as! MainTableViewCell
-        cell.playButton.isPaused = true
-        cell.playButton.setImage(UIImage(named: "Play1") as UIImage?, forState: .Normal)
-        isPaused = true
-    }
-    
-    //pauses song
-    func pauseSong(){
-        self.AudioPlayer.pause()
-    }
-    
-    //If the button is clicked, then either play the media associated with its cell or pause the player
-    func playPause(sender:MediaButton) {
-        if (isPaused) {
-            grabSong(sender.cellRow)
-            isPaused = false
-
-        } else {
-            pauseSong()
+        println(currRow)
+        if self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: currRow, inSection: 0)) == nil {
+            println("nil")
+            currRow = -1
             isPaused = true
-        
+        } else {
+            println("notnil")
+            var cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: currRow, inSection: 0))  as! MainTableViewCell
+            isPaused = true
+            cell.playButton.setImage(UIImage(named: "Play1") as UIImage?, forState: .Normal)
+            isPaused = true
+            currRow = -1
         }
     }
+    
 
-       
+    
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        println("index row = \(indexPath.row)")
+        //println("index row = \(indexPath.row)")
         var cell = self.tableView.cellForRowAtIndexPath(indexPath) as! MainTableViewCell
-        println("\(cell.playButton.cellRow)")
+        // println("\(cell.playButton.buttonRow)")
         
     }
     
@@ -156,16 +183,4 @@ class MainTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
     
-//    override func tableView(_tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-//        if cell.respondsToSelector("setSeparatorInset:") {
-//            cell.separatorInset = UIEdgeInsetsZero
-//        }
-//        if cell.respondsToSelector("setLayoutMargins:") {
-//            cell.layoutMargins = UIEdgeInsetsZero
-//        }
-//        if cell.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
-//            cell.preservesSuperviewLayoutMargins = false
-//        }
-//    }
-    
-    }
+}

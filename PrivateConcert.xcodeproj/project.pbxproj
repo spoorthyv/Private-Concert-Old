@@ -270,8 +270,8 @@
 			children = (
 				E5ED4EA81B6BDEEB001889C8 /* LoginViewController.swift */,
 				E57750681B79527100F9E336 /* UserVC.swift */,
-				E56B37301B66C3FD0015678A /* TabBarController.swift */,
 				E56B37551B66EBE40015678A /* MainTableViewController.swift */,
+				E56B37301B66C3FD0015678A /* TabBarController.swift */,
 				E50BE9661B6835C30076E83F /* SoundRecorder.swift */,
 				E51AA08F1B6FDC320068DF8B /* UserTableViewController.swift */,
 				E5FB70361B73C5CF0028EC0B /* PopupViewController.swift */,

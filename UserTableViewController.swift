@@ -73,11 +73,13 @@ class UserTableViewController: UITableViewController, AVAudioPlayerDelegate {
         cell.tagsLabel?.text = tagsArray[indexPath.row]
         
         selectedSongNumber = indexPath.row
-        cell.playButton.cellRow = indexPath.row
+        cell.playButton.buttonRow = indexPath.row
         //cell.playButton.addTarget(self, action: "playPause:", forControlEvents: .TouchUpInside)
         
         return cell
     }
+    
+
     
     func convertTagsToString(tagArray: [String]) -> String{
         var tempString = tagArray[0]
@@ -105,11 +107,11 @@ class UserTableViewController: UITableViewController, AVAudioPlayerDelegate {
     
     func playPause(sender:MediaButton) {
         if (isPaused) {
-            playSong(sender.cellRow)
+            //playSong(sender.buttonRow)
             isPaused = false
             
         } else {
-            pauseSong(sender.cellRow)
+            //pauseSong(sender.buttonRow)
             isPaused = true
         }
     }
@@ -121,6 +123,7 @@ class UserTableViewController: UITableViewController, AVAudioPlayerDelegate {
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        //PF
         
     }
     
