@@ -105,8 +105,26 @@ class MainTableViewController: UITableViewController {
         let cell = view.superview as! MainTableViewCell
         
         let indexPath = tableView.indexPathForCell(cell)
-        
-        if (isPaused) {
+        if (!isPaused && (currRow != sender.buttonRow) && (currRow != -1)) {
+            if (self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: currRow, inSection: 0)) == nil) {
+                println("nil")
+                currRow = sender.buttonRow
+                grabSong(sender.buttonRow)
+                isPaused = false
+                //sender.setImage(UIImage(named: "Pause2") as UIImage?, forState: .Normal)
+            } else {
+                println("notnil")
+                var cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: currRow, inSection: 0))  as! MainTableViewCell
+                isPaused = true
+                cell.playButton.setImage(UIImage(named: "Play1") as UIImage?, forState: .Normal)
+                isPaused = true
+                currRow = sender.buttonRow
+                sender.setImage(UIImage(named: "Pause2") as UIImage?, forState: .Normal)
+                grabSong(sender.buttonRow)
+                
+                isPaused = false
+            }
+        } else if (isPaused) {
             grabSong(sender.buttonRow)
             isPaused = false
             sender.setImage(UIImage(named: "Pause2") as UIImage?, forState: .Normal)
@@ -116,7 +134,7 @@ class MainTableViewController: UITableViewController {
             self.AudioPlayer.pause()
             isPaused = true
             sender.setImage(UIImage(named: "Play1") as UIImage?, forState: .Normal)
-            
+            currRow = -1
         }
     }
     
