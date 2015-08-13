@@ -9,18 +9,20 @@
 import Foundation
 import UIKit
 import Parse
+import AVKit
+import AVFoundation
+
 
 class TabBarController: UIViewController {
     
     var currentViewController: UIViewController?
     @IBOutlet var placeholderView: UIView!
     @IBOutlet var tabBarButtons: Array<UIButton>!
+    var player = AVPlayer()
     
-    
+
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        
         if(tabBarButtons.count > 0) {
             performSegueWithIdentifier("SecondVCIdentifier", sender: tabBarButtons[1])
         }
@@ -41,7 +43,7 @@ class TabBarController: UIViewController {
             
             for btn in tabBarButtons {
                 btn.selected = false
-                btn.backgroundColor = UIColor(red: 110/255, green: 189/255, blue: 230/255, alpha: 1.0)
+                btn.backgroundColor = UIColor(red: 86/255, green: 163/255, blue: 209/255, alpha: 1.0)
             }
             
             let senderBtn = sender as! UIButton

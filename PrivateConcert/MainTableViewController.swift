@@ -21,17 +21,22 @@ class MainTableViewController: UITableViewController {
     var IDArray: [String] = [""]
     var nameArray: [String] = [""]
     var tagsArray: [String] = [""]
+    var flagArray: [[PFUser]] = [[PFUser()]]
+    
     
     
     //When View Loads: load tableview data and add a refresh control to tableview
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //ProgressHUD.show("Please wait...")
+        var status = AudioPlayer.status
+        println(status)
         reloadTableQuery()
         
         var refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "reloadTableQuery", forControlEvents: UIControlEvents.ValueChanged)
         self.refreshControl = refreshControl
+        
     }
     
     
@@ -47,6 +52,8 @@ class MainTableViewController: UITableViewController {
             self.IDArray = [String](count: objectIDs.count, repeatedValue: " ")
             self.nameArray = [String](count: objectIDs.count, repeatedValue: " ")
             self.tagsArray = [String](count: objectIDs.count, repeatedValue: " ")
+            self.flagArray = Array(count:objectIDs.count, repeatedValue: [PFUser](count:0, repeatedValue:PFUser()))
+
             
             if objectIDs.count > 0 {
                 for i in 0...objectIDs.count-1 {
@@ -54,7 +61,6 @@ class MainTableViewController: UITableViewController {
                     self.nameArray[i] = (objectIDs[i].valueForKey("songName") as! String)
                     self.tagsArray[i] = (self.convertTagsToString(objectIDs[i].valueForKey("tags") as! [String]))
                     //println(objectIDs[i].valueForKey("tags") as! [String])
-                    
                     self.tableView.reloadData()
                     self.refreshControl!.endRefreshing()
                 }
@@ -76,6 +82,7 @@ class MainTableViewController: UITableViewController {
         cell.tagsLabel?.text = tagsArray[indexPath.row]
         
         cell.playButton.buttonRow = indexPath.row
+        cell.flagButton.tag = indexPath.row
         
         println("Button index: \(cell.playButton.buttonRow), Cell index: \(indexPath.row)")
         
@@ -187,6 +194,44 @@ class MainTableViewController: UITableViewController {
         }
     }
     
+    @IBAction func FlagPost(sender: AnyObject) {
+        println("Flag")
+        showFlagActionSheetForPost(sender.tag!)
+    }
+    
+    func showFlagActionSheetForPost(objectRow: Int) {
+        let alertController = UIAlertController(title: nil, message: "Do you want to flag this post?", preferredStyle: .ActionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        let destroyAction = UIAlertAction(title: "Flag", style: UIAlertActionStyle.Destructive) { (alert) in
+            //post.flagPost(PFUser.currentUser()!)
+            //ParseHelper.flagPost(self.IDArray[objectRow])
+            self.flagPost(self.IDArray[objectRow])
+        }
+        
+        alertController.addAction(destroyAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func flagPost(objectID: String) {
+        
+        var ObjectIDQuery2 = PFQuery(className: "Song")
+        ObjectIDQuery2.whereKey("objectId", equalTo: objectID)
+        var flaggedSong: PFObject = ObjectIDQuery2.findObjects()?.first as! PFObject
+        
+        let flagObject = PFObject(className: "Flag")
+        flagObject.setObject(PFUser.currentUser()!, forKey: "fromUser")
+        flagObject.setObject(flaggedSong, forKey: "toSong")
+        
+        let ACL = PFACL(user: PFUser.currentUser()!)
+        ACL.setPublicReadAccess(true)
+        flagObject.ACL = ACL
+        
+        flagObject.save()
+    }
 
     
     
@@ -200,5 +245,6 @@ class MainTableViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+
+
 }

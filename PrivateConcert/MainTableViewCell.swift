@@ -12,6 +12,7 @@ class MainTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tagsLabel: UILabel!
     @IBOutlet weak var playButton: MediaButton!
+    @IBOutlet weak var flagButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

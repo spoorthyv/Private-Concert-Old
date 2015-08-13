@@ -21,7 +21,7 @@ class TagTextField: UITextField {
         self.backgroundColor = UIColor.clearColor()
         self.textColor = UIColor.grayColor()
         self.tintColor = UIColor.grayColor()
-        self.attributedPlaceholder = NSAttributedString(string:"Title",
+        self.attributedPlaceholder = NSAttributedString(string:"Tag",
             attributes:[NSForegroundColorAttributeName: UIColor.grayColor()])
         
     }

@@ -41,7 +41,10 @@
 		E57750351B77DAB500F9E336 /* CancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57750341B77DAB500F9E336 /* CancelButton.swift */; };
 		E57750371B77DC2300F9E336 /* SaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57750361B77DC2300F9E336 /* SaveButton.swift */; };
 		E57750691B79527100F9E336 /* UserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57750681B79527100F9E336 /* UserVC.swift */; };
-		E577506C1B79559000F9E336 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E577506A1B79559000F9E336 /* Main.storyboard */; };
+		E57750AF1B7C0CFC00F9E336 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E57750AD1B7C0CFC00F9E336 /* Main.storyboard */; };
+		E57750D11B7C14E700F9E336 /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E57750C31B7C14E700F9E336 /* ProgressHUD.bundle */; };
+		E57750D21B7C14E700F9E336 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E57750C51B7C14E700F9E336 /* ProgressHUD.m */; };
+		E57750E31B7D1C1900F9E336 /* ParseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57750E21B7D1C1900F9E336 /* ParseHelper.swift */; };
 		E59293CC1B715FA900162471 /* DismissSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59293CB1B715FA900162471 /* DismissSegue.swift */; };
 		E5ED4E461B696FBA001889C8 /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ED4E451B696FBA001889C8 /* RecordButton.swift */; };
 		E5ED4E4B1B697DC4001889C8 /* pier-bold-italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E5ED4E471B697DC4001889C8 /* pier-bold-italic.otf */; };
@@ -103,7 +106,12 @@
 		E57750341B77DAB500F9E336 /* CancelButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelButton.swift; sourceTree = "<group>"; };
 		E57750361B77DC2300F9E336 /* SaveButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveButton.swift; sourceTree = "<group>"; };
 		E57750681B79527100F9E336 /* UserVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserVC.swift; sourceTree = "<group>"; };
-		E577506B1B79559000F9E336 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E57750AE1B7C0CFC00F9E336 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E57750C31B7C14E700F9E336 /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
+		E57750C41B7C14E700F9E336 /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
+		E57750C51B7C14E700F9E336 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
+		E57750DB1B7C159200F9E336 /* PrivateConcert-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrivateConcert-Bridging-Header.h"; sourceTree = "<group>"; };
+		E57750E21B7D1C1900F9E336 /* ParseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseHelper.swift; sourceTree = "<group>"; };
 		E59293CB1B715FA900162471 /* DismissSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissSegue.swift; sourceTree = "<group>"; };
 		E5ED4E451B696FBA001889C8 /* RecordButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
 		E5ED4E471B697DC4001889C8 /* pier-bold-italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pier-bold-italic.otf"; sourceTree = "<group>"; };
@@ -190,8 +198,10 @@
 		E56B37071B66C3540015678A /* PrivateConcert */ = {
 			isa = PBXGroup;
 			children = (
-				E577506A1B79559000F9E336 /* Main.storyboard */,
 				E56B370A1B66C3540015678A /* AppDelegate.swift */,
+				E57750AD1B7C0CFC00F9E336 /* Main.storyboard */,
+				E57750DB1B7C159200F9E336 /* PrivateConcert-Bridging-Header.h */,
+				E57750C21B7C14E700F9E336 /* ProgressHUD */,
 				E577502D1B75765A00F9E336 /* ViewControllers */,
 				E577502C1B75763900F9E336 /* Segues */,
 				E50BE9651B6835A00076E83F /* Models */,
@@ -274,9 +284,21 @@
 				E56B37301B66C3FD0015678A /* TabBarController.swift */,
 				E50BE9661B6835C30076E83F /* SoundRecorder.swift */,
 				E51AA08F1B6FDC320068DF8B /* UserTableViewController.swift */,
+				E57750E21B7D1C1900F9E336 /* ParseHelper.swift */,
 				E5FB70361B73C5CF0028EC0B /* PopupViewController.swift */,
 			);
 			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		E57750C21B7C14E700F9E336 /* ProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				E57750C31B7C14E700F9E336 /* ProgressHUD.bundle */,
+				E57750C41B7C14E700F9E336 /* ProgressHUD.h */,
+				E57750C51B7C14E700F9E336 /* ProgressHUD.m */,
+			);
+			name = ProgressHUD;
+			path = "ProgressHUD-master/ProgressHUD/ProgressHUD";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -360,7 +382,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E577506C1B79559000F9E336 /* Main.storyboard in Resources */,
+				E57750D11B7C14E700F9E336 /* ProgressHUD.bundle in Resources */,
+				E57750AF1B7C0CFC00F9E336 /* Main.storyboard in Resources */,
 				E5ED4E4B1B697DC4001889C8 /* pier-bold-italic.otf in Resources */,
 				E5ED4E4E1B697DC4001889C8 /* pier-regular.otf in Resources */,
 				E56B37151B66C3540015678A /* LaunchScreen.xib in Resources */,
@@ -386,11 +409,13 @@
 			files = (
 				E5FB70371B73C5CF0028EC0B /* PopupViewController.swift in Sources */,
 				E50BE9641B68034F0076E83F /* MediaButton.swift in Sources */,
+				E57750E31B7D1C1900F9E336 /* ParseHelper.swift in Sources */,
 				E57750691B79527100F9E336 /* UserVC.swift in Sources */,
 				E51AA08C1B6FDC010068DF8B /* UserTableViewCell.swift in Sources */,
 				E56B37311B66C3FD0015678A /* TabBarController.swift in Sources */,
 				E56B37581B66F17B0015678A /* Song.swift in Sources */,
 				E56B37331B66C42C0015678A /* NavigationSegue.swift in Sources */,
+				E57750D21B7C14E700F9E336 /* ProgressHUD.m in Sources */,
 				E57750311B77D76600F9E336 /* TitleTextField.swift in Sources */,
 				E50BE9601B67E0680076E83F /* MainTableViewCell.swift in Sources */,
 				E5ED4E461B696FBA001889C8 /* RecordButton.swift in Sources */,
@@ -433,10 +458,10 @@
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
-		E577506A1B79559000F9E336 /* Main.storyboard */ = {
+		E57750AD1B7C0CFC00F9E336 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E577506B1B79559000F9E336 /* Base */,
+				E57750AE1B7C0CFC00F9E336 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -539,6 +564,7 @@
 				INFOPLIST_FILE = PrivateConcert/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/spoorthyvemula/Documents/Xcode/Private-Concert/PrivateConcert/PrivateConcert-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -554,6 +580,7 @@
 				INFOPLIST_FILE = PrivateConcert/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/spoorthyvemula/Documents/Xcode/Private-Concert/PrivateConcert/PrivateConcert-Bridging-Header.h";
 			};
 			name = Release;
 		};

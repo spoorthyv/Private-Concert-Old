@@ -59,7 +59,7 @@ class PopupViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func saveButtonPressed(sender: AnyObject) {
-        if (titleField.text! == ""){
+        if (titleField.text.isEmpty){
             var alert = UIAlertView(title: "Invalid Title", message: "Please Enter a Valid Song Title", delegate: self, cancelButtonTitle: "OK")
             alert.show()
         } else {
