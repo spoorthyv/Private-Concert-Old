@@ -23,6 +23,8 @@ class MainTableViewController: UITableViewController {
     var tagsArray: [String] = [""]
     var flagArray: [[PFUser]] = [[PFUser()]]
     
+    var kvoContext: UInt8 = 1
+    
     
     
     //When View Loads: load tableview data and add a refresh control to tableview
@@ -42,6 +44,7 @@ class MainTableViewController: UITableViewController {
     
     //Queries all objects from Parse. Puts data into 3 arrays. Refreshes tableview
     func reloadTableQuery(){
+        
         var ObjectIDQuery = PFQuery(className: "Song")
         ObjectIDQuery.findObjectsInBackgroundWithBlock({
             (objectsArray: [AnyObject]?, error: NSError?) -> Void in
@@ -56,6 +59,7 @@ class MainTableViewController: UITableViewController {
 
             
             if objectIDs.count > 0 {
+                ProgressHUD.show("Loading...")
                 for i in 0...objectIDs.count-1 {
                     self.IDArray[i] = (objectIDs[i].valueForKey("objectId") as! String)
                     self.nameArray[i] = (objectIDs[i].valueForKey("songName") as! String)
@@ -63,9 +67,16 @@ class MainTableViewController: UITableViewController {
                     //println(objectIDs[i].valueForKey("tags") as! [String])
                     self.tableView.reloadData()
                     self.refreshControl!.endRefreshing()
+                    ProgressHUD.dismiss()
                 }
+            } else {
+                ProgressHUD.dismiss()
+                var alert = UIAlertController(title: "No Songs :(", message: "Be the first to share a song!", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Back", style: UIAlertActionStyle.Cancel, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
             }
         })
+        
         
     }
     
@@ -97,10 +108,8 @@ class MainTableViewController: UITableViewController {
     func setImage(cell: MainTableViewCell){
         if cell.playButton.buttonRow == currRow {
             cell.playButton.setImage(UIImage(named: "Pause2") as UIImage?, forState: .Normal)
-            //cell.playButton.isPaused = true
         } else {
             cell.playButton.setImage(UIImage(named: "Play1") as UIImage?, forState: .Normal)
-            //cell.playButton.isPaused = false
         }
     }
     
@@ -206,8 +215,6 @@ class MainTableViewController: UITableViewController {
         alertController.addAction(cancelAction)
         
         let destroyAction = UIAlertAction(title: "Flag", style: UIAlertActionStyle.Destructive) { (alert) in
-            //post.flagPost(PFUser.currentUser()!)
-            //ParseHelper.flagPost(self.IDArray[objectRow])
             self.flagPost(self.IDArray[objectRow])
         }
         
@@ -231,16 +238,18 @@ class MainTableViewController: UITableViewController {
         flagObject.ACL = ACL
         
         flagObject.save()
+        
+        
     }
 
     
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //println("index row = \(indexPath.row)")
-        var cell = self.tableView.cellForRowAtIndexPath(indexPath) as! MainTableViewCell
-        // println("\(cell.playButton.buttonRow)")
-        
-    }
+//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        //println("index row = \(indexPath.row)")
+//        var cell = self.tableView.cellForRowAtIndexPath(indexPath) as! MainTableViewCell
+//        // println("\(cell.playButton.buttonRow)")
+//        
+//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

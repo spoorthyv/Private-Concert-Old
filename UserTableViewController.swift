@@ -23,6 +23,7 @@ class UserTableViewController: UITableViewController {
     var IDArray: [String] = [""]
     var nameArray: [String] = [""]
     var tagsArray: [String] = [""]
+    var numberOfObjects: Int = 0
     
     
     //When View Loads: load tableview data and add a refresh control to tableview
@@ -51,23 +52,40 @@ class UserTableViewController: UITableViewController {
             self.nameArray = [String](count: objectIDs.count, repeatedValue: " ")
             self.tagsArray = [String](count: objectIDs.count, repeatedValue: " ")
             
+            self.numberOfObjects = objectIDs.count
             if objectIDs.count > 0 {
+                ProgressHUD.show("Loading...")
                 for i in 0...objectIDs.count-1 {
                     self.IDArray[i] = (objectIDs[i].valueForKey("objectId") as! String)
                     self.nameArray[i] = (objectIDs[i].valueForKey("songName") as! String)
                     self.tagsArray[i] = (self.convertTagsToString(objectIDs[i].valueForKey("tags") as! [String]))
                     //println(objectIDs[i].valueForKey("tags") as! [String])
                     
-                    self.tableView.reloadData()
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.tableView.reloadData()
+                    })
                     self.refreshControl!.endRefreshing()
+                    ProgressHUD.dismiss()
                 }
+            } else {
+                let screenSize: CGRect = self.view.bounds
+                var DynamicView=UIView(frame: CGRectMake(0, 0, screenSize.width, screenSize.height))
+                DynamicView.backgroundColor = self.grayBackroundColor
+                self.view.addSubview(DynamicView)
+                self.refreshControl!.endRefreshing()
+                
+                
+                ProgressHUD.dismiss()
+//                var alert = UIAlertController(title: "No Songs :(", message: "You haven't shared any songs.", preferredStyle: UIAlertControllerStyle.Alert)
+//                alert.addAction(UIAlertAction(title: "Go Back", style: UIAlertActionStyle.Cancel, handler: nil))
+//                self.presentViewController(alert, animated: true, completion: nil)
             }
         })
         
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return IDArray.count
+        return numberOfObjects
     }
     
     //For each cell, set the title and tags. When you click button call playPause method
@@ -190,7 +208,20 @@ class UserTableViewController: UITableViewController {
         }
     }
     
-    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        //self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Left)
+        var ObjectIDQuery2 = PFQuery(className: "Song")
+        ObjectIDQuery2.whereKey("objectId", equalTo: IDArray[indexPath.row])
+        var flaggedSong: PFObject = ObjectIDQuery2.findObjects()?.first as! PFObject
+        flaggedSong.delete()
+        
+        IDArray = [""]
+        nameArray = [""]
+        tagsArray = [""]
+
+        reloadTableQuery()
+        
+    }
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

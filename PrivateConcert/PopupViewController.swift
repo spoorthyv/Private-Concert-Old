@@ -25,8 +25,11 @@ class PopupViewController: UIViewController, UITextFieldDelegate {
         tagField1.delegate = self
         tagField2.delegate = self
         tagField3.delegate = self
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name:UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name:UIKeyboardWillHideNotification, object: nil)
+        
     }
-
     
     
     func uploadSong(obj: Song) {
@@ -76,6 +79,8 @@ class PopupViewController: UIViewController, UITextFieldDelegate {
         }
         
         uploadSong(exSong)
+        var mainTableViewCont = MainTableViewController()
+        mainTableViewCont.reloadTableQuery()
         performSegueWithIdentifier("cancelPopup", sender: self)
     }
     
@@ -86,6 +91,18 @@ class PopupViewController: UIViewController, UITextFieldDelegate {
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         self.view.endEditing(true)
+    }
+    func keyboardWillShow(sender: NSNotification) {
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            if(self.view.frame.origin.y > -106) {
+                self.view.frame.origin.y -= 106
+            }
+        })
+    }
+    func keyboardWillHide(sender: NSNotification) {
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            self.view.frame.origin.y += 106
+        })
     }
 
     

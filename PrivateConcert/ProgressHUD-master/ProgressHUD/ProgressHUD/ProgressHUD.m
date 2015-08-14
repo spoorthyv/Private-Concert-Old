@@ -305,11 +305,11 @@
 		self.alpha = 1;
 
 		hud.alpha = 0;
-		hud.transform = CGAffineTransformScale(hud.transform, 1.4, 1.4);
+		hud.transform = CGAffineTransformScale(hud.transform, 0.4, 0.4);
 
 		NSUInteger options = UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut;
 		[UIView animateWithDuration:0.15 delay:0 options:options animations:^{
-			hud.transform = CGAffineTransformScale(hud.transform, 1/1.4, 1/1.4);
+			hud.transform = CGAffineTransformScale(hud.transform, 1/0.4, 1/0.4);
 			hud.alpha = 1;
 		} completion:nil];
 	}
@@ -321,7 +321,7 @@
 {
 	if (self.alpha == 1)
 	{
-		NSUInteger options = UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseIn;
+		NSUInteger options = UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut;
 		[UIView animateWithDuration:0.15 delay:0 options:options animations:^{
 			hud.transform = CGAffineTransformScale(hud.transform, 0.7, 0.7);
 			hud.alpha = 0;

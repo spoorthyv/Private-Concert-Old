@@ -25,7 +25,6 @@ class LoginViewController: UIViewController, PFLogInViewControllerDelegate, PFSi
             self.logInViewController.fields = PFLogInFields.UsernameAndPassword | PFLogInFields.LogInButton | PFLogInFields.SignUpButton | PFLogInFields.PasswordForgotten | PFLogInFields.DismissButton
             
             var logoView = UIImageView(image: UIImage(named:"loginTitle"))
-            //logoView.contentMode = UIViewContentMode.ScaleAspectFit
             
             self.logInViewController.logInView?.logo = logoView
             
@@ -34,7 +33,7 @@ class LoginViewController: UIViewController, PFLogInViewControllerDelegate, PFSi
             var signUpLogoTitle = UILabel()
             signUpLogoTitle.text = "Private Concert"
             
-            self.signUpViewController.signUpView?.logo = signUpLogoTitle
+            self.signUpViewController.signUpView?.logo = logoView
             self.signUpViewController.delegate = self
             self.logInViewController.signUpController = self.signUpViewController
         } else {
@@ -63,7 +62,10 @@ class LoginViewController: UIViewController, PFLogInViewControllerDelegate, PFSi
     }
     
     func logInViewController(logInController: PFLogInViewController, didFailToLogInWithError error: NSError?) {
-        println("Failed to login")
+        var alert = UIAlertController(title: "Failed Login", message: "Please enter a valid username and password.", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        logInViewController.presentViewController(alert, animated: true, completion: nil)
+        
     }
     
     //MARK: Parse Sign Up
@@ -73,7 +75,9 @@ class LoginViewController: UIViewController, PFLogInViewControllerDelegate, PFSi
     }
     
     func signUpViewController(signUpController: PFSignUpViewController, didFailToSignUpWithError error: NSError?) {
-        println("Failed to Sign Up...")
+        var alert = UIAlertController(title: "Failed Signup", message: "Please enter a valid set of information", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        logInViewController.presentViewController(alert, animated: true, completion: nil)
     }
     
     func signUpViewControllerDidCancelSignUp(signUpController: PFSignUpViewController) {
@@ -83,7 +87,7 @@ class LoginViewController: UIViewController, PFLogInViewControllerDelegate, PFSi
     
     //MARK: Actions
     
-    @IBAction func simpleAction (sender: AnyObject) {
+    @IBAction func showLoginAction (sender: AnyObject) {
         self.presentViewController(self.logInViewController, animated: true, completion: nil)
     }
     
