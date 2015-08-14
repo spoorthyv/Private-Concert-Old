@@ -57,7 +57,7 @@ class UserTableViewController: UITableViewController {
             
             self.numberOfObjects = objectIDs.count
             if objectIDs.count > 0 {
-                ProgressHUD.show("Loading...")
+                //ProgressHUD.show("Loading...")
                 for i in 0...objectIDs.count-1 {
                     self.IDArray[i] = (objectIDs[i].valueForKey("objectId") as! String)
                     self.nameArray[i] = (objectIDs[i].valueForKey("songName") as! String)
@@ -68,7 +68,7 @@ class UserTableViewController: UITableViewController {
                         self.tableView.reloadData()
                     })
                     self.refreshControl!.endRefreshing()
-                    ProgressHUD.dismiss()
+                    //ProgressHUD.dismiss()
                 }
             } else {
                 let screenSize: CGRect = self.view.bounds

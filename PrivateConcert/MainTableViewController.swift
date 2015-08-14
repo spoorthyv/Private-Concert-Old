@@ -34,7 +34,6 @@ class MainTableViewController: UITableViewController {
     override func viewDidLoad() {
         mixpanel.track("Open Concert Room")
         super.viewDidLoad()
-        //ProgressHUD.show("Please wait...")
         var status = AudioPlayer.status
         println(status)
         reloadTableQuery()
@@ -63,7 +62,7 @@ class MainTableViewController: UITableViewController {
 
             
             if objectIDs.count > 0 {
-                ProgressHUD.show("Loading...")
+                //ProgressHUD.show("Loading...")
                 for i in 0...objectIDs.count-1 {
                     self.IDArray[i] = (objectIDs[i].valueForKey("objectId") as! String)
                     self.nameArray[i] = (objectIDs[i].valueForKey("songName") as! String)
@@ -71,10 +70,10 @@ class MainTableViewController: UITableViewController {
                     //println(objectIDs[i].valueForKey("tags") as! [String])
                     self.tableView.reloadData()
                     self.refreshControl!.endRefreshing()
-                    ProgressHUD.dismiss()
+                    //ProgressHUD.dismiss()
                 }
             } else {
-                ProgressHUD.dismiss()
+                //ProgressHUD.dismiss()
                 var alert = UIAlertController(title: "No Songs :(", message: "Be the first to share a song!", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "Back", style: UIAlertActionStyle.Cancel, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
