@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "idiom" : "universal",
+      "scale" : "1x",
+      "filename" : "Path 349 + Path 349 Copy + Path 353 + Path 352 + You havent recorded .png"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x",
+      "filename" : "Path 349 + Path 349 Copy + Path 353 + Path 352 + You havent recorded @2x.png"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x",
+      "filename" : "Path 349 + Path 349 Copy + Path 353 + Path 352 + You havent recorded @3x.png"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

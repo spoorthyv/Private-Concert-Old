@@ -71,7 +71,19 @@ class UserTableViewController: UITableViewController {
                 let screenSize: CGRect = self.view.bounds
                 var DynamicView=UIView(frame: CGRectMake(0, 0, screenSize.width, screenSize.height))
                 DynamicView.backgroundColor = self.grayBackroundColor
+                
+                var sadImage = UIImage(named: "NoSongs")
+                var imageView = UIImageView(image: sadImage)
+//                let xCenterConstraint = NSLayoutConstraint(item: imageView, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0)
+//                self.view.addConstraint(xCenterConstraint)
+//                
+//                let yCenterConstraint = NSLayoutConstraint(item: imageView, attribute: .CenterY, relatedBy: .Equal, toItem: self.view, attribute: .CenterY, multiplier: 1, constant: 0)
+//                self.view.addConstraint(yCenterConstraint)
+                
+                imageView.center = CGPoint(x: screenSize.width/2, y: (149 + (screenSize.height - 149)/6))
+                
                 self.view.addSubview(DynamicView)
+                self.view.addSubview(imageView)
                 self.refreshControl!.endRefreshing()
                 
                 
