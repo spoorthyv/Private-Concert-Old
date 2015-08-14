@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import AVFoundation
+import Mixpanel
 
 class PopupViewController: UIViewController, UITextFieldDelegate {
     var exSong = Song(title: "", tags: [], musicData: NSData())
@@ -18,9 +19,11 @@ class PopupViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var tagField2: UITextField!
     @IBOutlet weak var tagField3: UITextField!
     
+    let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        mixpanel.track("Popup did appear")
         titleField.delegate = self
         tagField1.delegate = self
         tagField2.delegate = self
@@ -58,10 +61,12 @@ class PopupViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func cancelButtonPressed(sender: AnyObject) {
+        mixpanel.track("Cancel button tapped")
         performSegueWithIdentifier("cancelPopup", sender: self)
     }
-    
+
     @IBAction func saveButtonPressed(sender: AnyObject) {
+        mixpanel.track("Save button tapped")
         if (titleField.text.isEmpty){
             var alert = UIAlertView(title: "Invalid Title", message: "Please Enter a Valid Song Title", delegate: self, cancelButtonTitle: "OK")
             alert.show()

@@ -667,29 +667,25 @@
                                     </containerView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LNc-3a-owJ">
                                         <rect key="frame" x="8" y="3" width="584" height="35"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XYs-6u-6fX">
-                                                <rect key="frame" x="267.5" y="-4.5" width="49" height="44"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="44" id="FbN-0d-6Ee"/>
-                                                </constraints>
-                                                <state key="normal" title="Logout">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="titleShadowColor" red="0.47081647177209096" green="0.66217287969049454" blue="0.7473375822368421" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="Logout:" destination="hyl-2D-ofa" eventType="touchUpInside" id="MO7-8Y-omq"/>
-                                                    <segue destination="Bya-Ad-bLe" kind="showDetail" identifier="goBackToLogin2" id="b0z-Ca-Nmd"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
                                         <color key="backgroundColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="FWA-Nl-ovH"/>
-                                            <constraint firstAttribute="centerY" secondItem="XYs-6u-6fX" secondAttribute="centerY" id="JQI-jE-D26"/>
-                                            <constraint firstAttribute="centerX" secondItem="XYs-6u-6fX" secondAttribute="centerX" id="sXe-ui-1SJ"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XYs-6u-6fX">
+                                        <rect key="frame" x="275.5" y="-1.5" width="49" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="FbN-0d-6Ee"/>
+                                        </constraints>
+                                        <state key="normal" title="Logout">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.47081647177209096" green="0.66217287969049454" blue="0.7473375822368421" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="Logout:" destination="hyl-2D-ofa" eventType="touchUpInside" id="MO7-8Y-omq"/>
+                                            <segue destination="Bya-Ad-bLe" kind="showDetail" identifier="goBackToLogin2" id="b0z-Ca-Nmd"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -701,10 +697,12 @@
                                     <constraint firstItem="n3E-u7-b0S" firstAttribute="top" secondItem="bXI-qT-7M7" secondAttribute="top" id="aJw-tG-hhg"/>
                                     <constraint firstItem="LNc-3a-owJ" firstAttribute="bottom" secondItem="n3E-u7-b0S" secondAttribute="top" constant="-2" id="bIg-va-kp0"/>
                                     <constraint firstAttribute="trailing" secondItem="n3E-u7-b0S" secondAttribute="trailing" constant="7" id="bPA-XN-Mkk"/>
+                                    <constraint firstItem="XYs-6u-6fX" firstAttribute="centerX" secondItem="n3E-u7-b0S" secondAttribute="centerX" id="byn-dP-9GX"/>
                                     <constraint firstItem="n3E-u7-b0S" firstAttribute="top" secondItem="LNc-3a-owJ" secondAttribute="bottom" constant="2" id="fi6-Qt-A9C"/>
                                     <constraint firstItem="LNc-3a-owJ" firstAttribute="leading" secondItem="bXI-qT-7M7" secondAttribute="leading" constant="8" id="h8n-Zb-b0Q"/>
                                     <constraint firstItem="LNc-3a-owJ" firstAttribute="top" secondItem="n3E-u7-b0S" secondAttribute="bottom" constant="2" id="nTO-7Q-UOx"/>
                                     <constraint firstItem="LNc-3a-owJ" firstAttribute="top" secondItem="bXI-qT-7M7" secondAttribute="top" constant="2" id="pJg-YQ-chn"/>
+                                    <constraint firstItem="LNc-3a-owJ" firstAttribute="centerY" secondItem="XYs-6u-6fX" secondAttribute="centerY" id="pTo-we-UNg"/>
                                     <constraint firstItem="n3E-u7-b0S" firstAttribute="bottom" secondItem="bXI-qT-7M7" secondAttribute="bottom" constant="4" id="q1x-N8-iGD"/>
                                 </constraints>
                                 <variation key="default">

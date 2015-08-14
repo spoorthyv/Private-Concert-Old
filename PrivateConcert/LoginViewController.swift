@@ -26,15 +26,16 @@ class LoginViewController: UIViewController, PFLogInViewControllerDelegate, PFSi
             
             var logoView = UIImageView(image: UIImage(named:"loginTitle"))
             
+            var logoView2 = UIImageView(image: UIImage(named:"loginTitle"))
+            
             self.logInViewController.logInView?.logo = logoView
             
             self.logInViewController.delegate = self
             
-            var signUpLogoTitle = UILabel()
-            signUpLogoTitle.text = "Private Concert"
+            self.signUpViewController.signUpView?.logo = logoView2
             
-            self.signUpViewController.signUpView?.logo = logoView
             self.signUpViewController.delegate = self
+            
             self.logInViewController.signUpController = self.signUpViewController
         } else {
             self.performSegueWithIdentifier("finishLogin", sender: self)

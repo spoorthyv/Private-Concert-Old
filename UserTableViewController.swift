@@ -7,11 +7,11 @@
 //
 
 
-
 import UIKit
 import Parse
 import AVFoundation
 import AVKit
+import Mixpanel
 
 class UserTableViewController: UITableViewController {
     
@@ -25,10 +25,13 @@ class UserTableViewController: UITableViewController {
     var tagsArray: [String] = [""]
     var numberOfObjects: Int = 0
     
+    let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+    
     
     //When View Loads: load tableview data and add a refresh control to tableview
     override func viewDidLoad() {
         super.viewDidLoad()
+        mixpanel.track("Open My Songs")
         
         reloadTableQuery()
         
@@ -132,7 +135,7 @@ class UserTableViewController: UITableViewController {
     
     //If the button is clicked, then either play the media associated with its cell or pause the player
     func playPause(sender:MediaButton) {
-        
+        mixpanel.track("Play button tapped")
         let button = sender as MediaButton
         let view = button.superview!
         let cell = view.superview as! UserTableViewCell
@@ -205,6 +208,7 @@ class UserTableViewController: UITableViewController {
     }
     
     func playerDidFinishPlaying(note: NSNotification) {
+        mixpanel.track("Song Did Finish")
         println(currRow)
         if self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: currRow, inSection: 0)) == nil {
             println("nil")

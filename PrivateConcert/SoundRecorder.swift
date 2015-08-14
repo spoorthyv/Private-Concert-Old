@@ -9,12 +9,14 @@
 import UIKit
 import AVFoundation
 import Parse
-
+import Mixpanel
 
 class SoundRecorder: UIViewController, AVAudioRecorderDelegate {
     
     @IBOutlet weak var recordButton: RecordButton!
     @IBOutlet weak var isRecordingLabel: UILabel!
+    
+    let mixpanel: Mixpanel = Mixpanel.sharedInstance()
     
     var soundRecorder: AVAudioRecorder!
     var soundFileURL: NSURL!
@@ -76,6 +78,7 @@ class SoundRecorder: UIViewController, AVAudioRecorderDelegate {
     
     //switch state of whether or not we are recording
     @IBAction func recordSound(sender: RecordButton) {
+        mixpanel.track("Record button tapped")
         if (sender.isRecording == false){
             soundRecorder.record()
             isRecordingLabel.text = "Recording"

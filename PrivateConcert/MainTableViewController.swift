@@ -10,6 +10,7 @@ import UIKit
 import Parse
 import AVFoundation
 import AVKit
+import Mixpanel
 
 class MainTableViewController: UITableViewController {
     
@@ -25,10 +26,13 @@ class MainTableViewController: UITableViewController {
     
     var kvoContext: UInt8 = 1
     
+    let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+    
     
     
     //When View Loads: load tableview data and add a refresh control to tableview
     override func viewDidLoad() {
+        mixpanel.track("Open Concert Room")
         super.viewDidLoad()
         //ProgressHUD.show("Please wait...")
         var status = AudioPlayer.status
@@ -115,7 +119,8 @@ class MainTableViewController: UITableViewController {
     
     //If the button is clicked, then either play the media associated with its cell or pause the player
     func playPause(sender:MediaButton) {
-       
+        mixpanel.track("Play button tapped")
+
         let button = sender as MediaButton
         let view = button.superview!
         let cell = view.superview as! MainTableViewCell
@@ -188,6 +193,8 @@ class MainTableViewController: UITableViewController {
     }
     
     func playerDidFinishPlaying(note: NSNotification) {
+        mixpanel.track("Song Did Finish")
+
         println(currRow)
         if self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: currRow, inSection: 0)) == nil {
             println("nil")
@@ -224,7 +231,7 @@ class MainTableViewController: UITableViewController {
     }
     
     func flagPost(objectID: String) {
-        
+        mixpanel.track("Flagged Song")
         var ObjectIDQuery2 = PFQuery(className: "Song")
         ObjectIDQuery2.whereKey("objectId", equalTo: objectID)
         var flaggedSong: PFObject = ObjectIDQuery2.findObjects()?.first as! PFObject

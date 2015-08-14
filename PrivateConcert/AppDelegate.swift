@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import Bolts
+import Mixpanel
 
 //var nameOfApp = "AdWDAWD"
 
@@ -36,7 +37,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // [Optional] Track statistics around application opens.
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
         
-        // ...
+        Mixpanel.sharedInstanceWithToken("d540f867ee9a15b36cb49540ce3282ef")
+        let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+        mixpanel.track("App launched")
+        
         return true
     }
 
