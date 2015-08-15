@@ -620,7 +620,8 @@
 			baseConfigurationReference = 1F2DA41F14057068FEB56084 /* Pods-PrivateConcert.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PrivateConcert",
@@ -628,7 +629,9 @@
 				INFOPLIST_FILE = PrivateConcert/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "24c86ad7-3569-47b7-aed4-6044e006ad1c";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/spoorthyvemula/Documents/Xcode/Private-Concert/PrivateConcert/PrivateConcert-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -637,7 +640,8 @@
 			baseConfigurationReference = 9A057A92B1C3B41647ACFDD2 /* Pods-PrivateConcert.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PrivateConcert",
@@ -645,7 +649,9 @@
 				INFOPLIST_FILE = PrivateConcert/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "24c86ad7-3569-47b7-aed4-6044e006ad1c";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/spoorthyvemula/Documents/Xcode/Private-Concert/PrivateConcert/PrivateConcert-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
