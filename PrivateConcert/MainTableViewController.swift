@@ -267,6 +267,7 @@ class MainTableViewController: UITableViewController {
             flagObject.ACL = ACL
             
             flagObject.save()
+            reloadTableQuery()
         }
     }
     
