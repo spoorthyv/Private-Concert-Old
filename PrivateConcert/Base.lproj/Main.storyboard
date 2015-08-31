@@ -557,27 +557,13 @@
                                             <color key="textColor" red="0.9951826407506702" green="0.9951826407506702" blue="0.9951826407506702" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eh6-yz-kEx">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eh6-yz-kEx">
                                             <rect key="frame" x="82" y="18" width="37" height="26"/>
-                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="19"/>
+                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
-                                        <button clearsContextBeforeDrawing="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D53-iy-KcO">
-                                            <rect key="frame" x="542" y="23" width="44" height="45"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="44" id="JYQ-t6-G4P"/>
-                                                <constraint firstAttribute="height" constant="45" id="QGm-Ok-oSS"/>
-                                            </constraints>
-                                            <inset key="contentEdgeInsets" minX="15" minY="10" maxX="10" maxY="10"/>
-                                            <size key="titleShadowOffset" width="4" height="4"/>
-                                            <state key="normal" image="Flag"/>
-                                            <state key="selected" image="LoginButton"/>
-                                            <connections>
-                                                <action selector="FlagPost:" destination="iV0-BF-xsG" eventType="touchUpInside" id="5Qd-Ye-BIZ"/>
-                                            </connections>
-                                        </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sOI-dc-wJk">
                                             <rect key="frame" x="19" y="20" width="44" height="51"/>
                                             <constraints>
@@ -591,7 +577,7 @@
                                             <state key="selected" image="Pause1"/>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flagged" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="moR-Ap-3tN">
-                                            <rect key="frame" x="244.5" y="30" width="97" height="36"/>
+                                            <rect key="frame" x="244" y="30" width="97" height="36"/>
                                             <fontDescription key="fontDescription" name="Avenir-MediumOblique" family="Avenir" pointSize="26"/>
                                             <color key="textColor" red="0.37677651263297873" green="0.37677651263297873" blue="0.37677651263297873" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -603,18 +589,14 @@
                                         <constraint firstAttribute="centerY" secondItem="moR-Ap-3tN" secondAttribute="centerY" constant="-2" id="9Ml-C7-j34"/>
                                         <constraint firstAttribute="centerX" secondItem="moR-Ap-3tN" secondAttribute="centerX" id="AUE-Sh-QSD"/>
                                         <constraint firstItem="pAU-Cw-ORo" firstAttribute="centerX" secondItem="Eh6-yz-kEx" secondAttribute="centerX" id="CAH-xV-NIU"/>
-                                        <constraint firstAttribute="trailing" secondItem="D53-iy-KcO" secondAttribute="trailing" id="DwX-Db-hjs"/>
                                         <constraint firstItem="Eh6-yz-kEx" firstAttribute="leading" secondItem="sOI-dc-wJk" secondAttribute="trailing" constant="19" id="Kss-MU-7Ze"/>
                                         <constraint firstAttribute="centerY" secondItem="sOI-dc-wJk" secondAttribute="centerY" id="L7v-ek-8mg"/>
                                         <constraint firstItem="pAU-Cw-ORo" firstAttribute="leading" secondItem="sOI-dc-wJk" secondAttribute="trailing" constant="19" id="M68-pU-i8J"/>
                                         <constraint firstAttribute="bottom" secondItem="sV5-pL-yjz" secondAttribute="bottom" id="RI2-7H-MZY"/>
-                                        <constraint firstItem="D53-iy-KcO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Eh6-yz-kEx" secondAttribute="trailing" constant="-5" id="Xe1-ag-7uI"/>
-                                        <constraint firstAttribute="centerY" secondItem="D53-iy-KcO" secondAttribute="centerY" constant="0.5" id="c6x-bl-4AP"/>
                                         <constraint firstItem="sOI-dc-wJk" firstAttribute="leading" secondItem="EqO-WL-vhc" secondAttribute="leading" constant="19" id="e1l-SM-Bl1"/>
                                         <constraint firstItem="sV5-pL-yjz" firstAttribute="leading" secondItem="EqO-WL-vhc" secondAttribute="leading" id="ea1-05-r2I"/>
                                         <constraint firstAttribute="trailing" secondItem="sV5-pL-yjz" secondAttribute="trailing" id="grq-nu-HFe"/>
                                         <constraint firstAttribute="centerY" secondItem="pAU-Cw-ORo" secondAttribute="centerY" constant="-17" id="m1a-hQ-jJR"/>
-                                        <constraint firstItem="D53-iy-KcO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="pAU-Cw-ORo" secondAttribute="trailing" constant="-5" id="rXf-tM-mde"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
@@ -623,9 +605,9 @@
                                     </variation>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.2627450980392157" green="0.2627450980392157" blue="0.2627450980392157" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
-                                    <outlet property="flagButton" destination="D53-iy-KcO" id="ELh-Nn-u83"/>
                                     <outlet property="isFlaggedLabel" destination="moR-Ap-3tN" id="1dR-YX-8MH"/>
                                     <outlet property="playButton" destination="sOI-dc-wJk" id="rwM-Z8-MWk"/>
                                     <outlet property="tagsLabel" destination="pAU-Cw-ORo" id="Y5B-qT-Inb"/>
@@ -906,7 +888,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Flag" width="18" height="30"/>
         <image name="LoginButton" width="284" height="284"/>
         <image name="Pause1" width="21" height="36"/>
         <image name="Play1" width="31" height="36"/>

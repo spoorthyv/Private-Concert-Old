@@ -11,14 +11,16 @@ import Parse
 import AVFoundation
 import AVKit
 import Mixpanel
+import AudioToolbox
 
-class MainTableViewController: UITableViewController {
+class MainTableViewController: UITableViewController, UIGestureRecognizerDelegate {
     
 //MARK: Variables
     let mixpanel: Mixpanel = Mixpanel.sharedInstance()
     
     var session: AVAudioSession = AVAudioSession.sharedInstance()
     var AudioPlayer = AVPlayer()
+    var audioPlayer2 = AVAudioPlayer()
     
     var IDArray: [String] = [""]
     var nameArray: [String] = [""]
@@ -36,6 +38,12 @@ class MainTableViewController: UITableViewController {
         mixpanel.track("Open Concert Room")
         
         reloadTableQuery()
+        
+        var lpgr = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
+        lpgr.minimumPressDuration = 0.7
+        lpgr.delaysTouchesBegan = true
+        lpgr.delegate = self
+        self.tableView.addGestureRecognizer(lpgr)
         
         var refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "reloadTableQuery", forControlEvents: UIControlEvents.ValueChanged)
@@ -123,12 +131,7 @@ class MainTableViewController: UITableViewController {
             
             //button tag = row of the button
             cell.playButton.tag = indexPath.row
-            cell.flagButton.tag = indexPath.row
             
-//            cell.layoutSubviews()
-//            var cellView: UIView = UIView(frame: cell.contentView.frame)
-//            cellView.backgroundColor = grayBackroundColor
-//            cell.contentView.addSubview(cellView)
         } else {
             cell.titleLabel?.text = nameArray[indexPath.row]
             cell.tagsLabel?.text = tagsArray[indexPath.row]
@@ -136,7 +139,6 @@ class MainTableViewController: UITableViewController {
             
             //button tag = row of the button
             cell.playButton.tag = indexPath.row
-            cell.flagButton.tag = indexPath.row
 
         }
         
@@ -229,9 +231,23 @@ class MainTableViewController: UITableViewController {
 
     
 //MARK: Flagging
-    @IBAction func FlagPost(sender: AnyObject) {
-        println("Flag")
-        showFlagActionSheetForPost(sender.tag!)
+    func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+        if gestureReconizer.state == UIGestureRecognizerState.Began {
+            let p = gestureReconizer.locationInView(self.tableView)
+            let indexPath = self.tableView.indexPathForRowAtPoint(p)
+            
+            if let index = indexPath {
+                var cell = self.tableView.cellForRowAtIndexPath(indexPath!)
+                // do stuff with your cell, for example print the indexPath
+                println(index.row)
+                
+                playSound()
+                
+                showFlagActionSheetForPost(index.row)
+            } else {
+                println("Could not find index path")
+            }
+        }
     }
     func showFlagActionSheetForPost(objectRow: Int) {
         let alertController = UIAlertController(title: nil, message: "Do you want to flag this post?", preferredStyle: .ActionSheet)
@@ -306,6 +322,14 @@ class MainTableViewController: UITableViewController {
             }
         }
         return false
+    }
+    
+    func playSound() {
+        var alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Lock", ofType: "mp3")!)
+        var error:NSError?
+        audioPlayer2 = AVAudioPlayer(contentsOfURL: alertSound, error: &error)
+        audioPlayer2.prepareToPlay()
+        audioPlayer2.play()
     }
 
 

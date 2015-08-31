@@ -13,6 +13,7 @@
 		E50BE9671B6835C30076E83F /* SoundRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BE9661B6835C30076E83F /* SoundRecorder.swift */; };
 		E51AA08C1B6FDC010068DF8B /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51AA08B1B6FDC010068DF8B /* UserTableViewCell.swift */; };
 		E51AA0901B6FDC320068DF8B /* UserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51AA08F1B6FDC320068DF8B /* UserTableViewController.swift */; };
+		E54DB3441B945CD6002F3F55 /* Lock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E54DB3431B945CD6002F3F55 /* Lock.mp3 */; };
 		E56B370B1B66C3540015678A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B370A1B66C3540015678A /* AppDelegate.swift */; };
 		E56B37121B66C3540015678A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E56B37111B66C3540015678A /* Images.xcassets */; };
 		E56B37151B66C3540015678A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E56B37131B66C3540015678A /* LaunchScreen.xib */; };
@@ -75,6 +76,7 @@
 		E50BE9661B6835C30076E83F /* SoundRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundRecorder.swift; sourceTree = "<group>"; };
 		E51AA08B1B6FDC010068DF8B /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		E51AA08F1B6FDC320068DF8B /* UserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserTableViewController.swift; path = ../UserTableViewController.swift; sourceTree = "<group>"; };
+		E54DB3431B945CD6002F3F55 /* Lock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Lock.mp3; sourceTree = "<group>"; };
 		E56B37051B66C3540015678A /* PrivateConcert.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrivateConcert.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E56B37091B66C3540015678A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E56B370A1B66C3540015678A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 		E56B37071B66C3540015678A /* PrivateConcert */ = {
 			isa = PBXGroup;
 			children = (
+				E54DB3431B945CD6002F3F55 /* Lock.mp3 */,
 				E56B370A1B66C3540015678A /* AppDelegate.swift */,
 				E57750AD1B7C0CFC00F9E336 /* Main.storyboard */,
 				E57750DB1B7C159200F9E336 /* PrivateConcert-Bridging-Header.h */,
@@ -384,6 +387,7 @@
 				E5ED4E4E1B697DC4001889C8 /* pier-regular.otf in Resources */,
 				E56B37151B66C3540015678A /* LaunchScreen.xib in Resources */,
 				E5ED4E4D1B697DC4001889C8 /* pier-italic.otf in Resources */,
+				E54DB3441B945CD6002F3F55 /* Lock.mp3 in Resources */,
 				E5ED4E4C1B697DC4001889C8 /* pier-bold.otf in Resources */,
 				E56B37121B66C3540015678A /* Images.xcassets in Resources */,
 			);
