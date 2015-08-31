@@ -11,7 +11,7 @@ import UIKit
 class UserTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tagsLabel: UILabel!
-    @IBOutlet weak var playButton: MediaButton!
+    @IBOutlet weak var playButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

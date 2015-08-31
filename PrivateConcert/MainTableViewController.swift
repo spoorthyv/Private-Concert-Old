@@ -14,7 +14,8 @@ import Mixpanel
 
 class MainTableViewController: UITableViewController {
     
-    var grayBackroundColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+//MARK: Variables
+    let mixpanel: Mixpanel = Mixpanel.sharedInstance()
     
     var session: AVAudioSession = AVAudioSession.sharedInstance()
     var AudioPlayer = AVPlayer()
@@ -22,20 +23,18 @@ class MainTableViewController: UITableViewController {
     var IDArray: [String] = [""]
     var nameArray: [String] = [""]
     var tagsArray: [String] = [""]
-    var flagArray: [[PFUser]] = [[PFUser()]]
+    var flagArray = NSArray()
+    var flagPointerArray: [PFObject] = [PFObject(className: "Flag")]
+    var flaggedSongIDArray: [String] = [""]
     
-    var kvoContext: UInt8 = 1
-    
-    let mixpanel: Mixpanel = Mixpanel.sharedInstance()
-    
-    
+
+//MARK: View Did Load
     
     //When View Loads: load tableview data and add a refresh control to tableview
     override func viewDidLoad() {
-        mixpanel.track("Open Concert Room")
         super.viewDidLoad()
-        var status = AudioPlayer.status
-        println(status)
+        mixpanel.track("Open Concert Room")
+        
         reloadTableQuery()
         
         var refreshControl = UIRefreshControl()
@@ -44,9 +43,34 @@ class MainTableViewController: UITableViewController {
         
     }
     
+//MARK: Table View
     
     //Queries all objects from Parse. Puts data into 3 arrays. Refreshes tableview
     func reloadTableQuery(){
+        
+        var ObjectIDQuery2 = PFQuery(className: "Flag")
+        ObjectIDQuery2.whereKey("fromUser", equalTo: PFUser.currentUser()!)
+        ObjectIDQuery2.findObjectsInBackgroundWithBlock({
+            (objectsArray: [AnyObject]?, error: NSError?) -> Void in
+            
+            self.flagArray = objectsArray as! [PFObject]
+            
+            var tempFlagArray = objectsArray as! [PFObject]
+            
+            self.flagPointerArray = [PFObject](count: tempFlagArray.count, repeatedValue: PFObject(className: "Flag"))
+            self.flaggedSongIDArray = [String](count: tempFlagArray.count, repeatedValue: "")
+            
+            if tempFlagArray.count > 0 {
+                for i in 0...tempFlagArray.count-1 {
+                    self.flagPointerArray[i] = (tempFlagArray[i].valueForKey("toSong") as! PFObject)
+                    self.flaggedSongIDArray[i] = self.flagPointerArray[i].valueForKey("objectId") as! String
+                    self.tableView.reloadData()
+                }
+                //Else display an error
+            }
+        
+        })
+
         
         var ObjectIDQuery = PFQuery(className: "Song")
         ObjectIDQuery.findObjectsInBackgroundWithBlock({
@@ -54,26 +78,23 @@ class MainTableViewController: UITableViewController {
             
             var objectIDs = objectsArray as! [PFObject]
             
-            //NSLog("\(objectIDs)")
+            //Create blank arrays of the correct size
             self.IDArray = [String](count: objectIDs.count, repeatedValue: " ")
             self.nameArray = [String](count: objectIDs.count, repeatedValue: " ")
             self.tagsArray = [String](count: objectIDs.count, repeatedValue: " ")
-            self.flagArray = Array(count:objectIDs.count, repeatedValue: [PFUser](count:0, repeatedValue:PFUser()))
+            //self.flagArray = Array(count:objectIDs.count, repeatedValue: [PFUser](count:0, repeatedValue:PFUser()))
 
-            
+            //If there is more than 1 song, then load the data
             if objectIDs.count > 0 {
-                //ProgressHUD.show("Loading...")
                 for i in 0...objectIDs.count-1 {
                     self.IDArray[i] = (objectIDs[i].valueForKey("objectId") as! String)
                     self.nameArray[i] = (objectIDs[i].valueForKey("songName") as! String)
                     self.tagsArray[i] = (self.convertTagsToString(objectIDs[i].valueForKey("tags") as! [String]))
-                    //println(objectIDs[i].valueForKey("tags") as! [String])
                     self.tableView.reloadData()
                     self.refreshControl!.endRefreshing()
-                    //ProgressHUD.dismiss()
                 }
+            //Else display an error
             } else {
-                //ProgressHUD.dismiss()
                 var alert = UIAlertController(title: "No Songs :(", message: "Be the first to share a song!", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "Back", style: UIAlertActionStyle.Cancel, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
@@ -83,78 +104,179 @@ class MainTableViewController: UITableViewController {
         
     }
     
+    //# of rows in table = size of IDArray
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return IDArray.count
     }
     
-    //For each cell, set the title and tags. When you click button call playPause method
+    //For each cell, set the title,tagLabel,and button rows. When you click button call playPause method
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> MainTableViewCell {
         
         var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! MainTableViewCell
         
-        cell.titleLabel?.text = nameArray[indexPath.row]
-        cell.tagsLabel?.text = tagsArray[indexPath.row]
+        //set the title and tags of each cell
+        //if nameArray[indexPath.row] == flagArray[0].valueForKey("toSong") as! [String] {
+        if isInArray(IDArray[indexPath.row], iDArray: flaggedSongIDArray) {
+            cell.titleLabel?.text = " "
+            cell.tagsLabel?.text = " "
+            cell.isFlaggedLabel?.text = "FLAGGED"
+            
+            //button tag = row of the button
+            cell.playButton.tag = indexPath.row
+            cell.flagButton.tag = indexPath.row
+            
+//            cell.layoutSubviews()
+//            var cellView: UIView = UIView(frame: cell.contentView.frame)
+//            cellView.backgroundColor = grayBackroundColor
+//            cell.contentView.addSubview(cellView)
+        } else {
+            cell.titleLabel?.text = nameArray[indexPath.row]
+            cell.tagsLabel?.text = tagsArray[indexPath.row]
+            cell.isFlaggedLabel?.text = " "
+            
+            //button tag = row of the button
+            cell.playButton.tag = indexPath.row
+            cell.flagButton.tag = indexPath.row
+
+        }
         
-        cell.playButton.buttonRow = indexPath.row
-        cell.flagButton.tag = indexPath.row
+        println("Button index: \(cell.playButton.tag), Cell index: \(indexPath.row)")
         
-        println("Button index: \(cell.playButton.buttonRow), Cell index: \(indexPath.row)")
-        
+        //When button is pressed call 'playPause'
         cell.playButton.addTarget(self, action: "playPause:", forControlEvents: .TouchUpInside)
         
-        setImage(cell)
+        //Set image of each cell's playButton: If the currRow = the buttons row -> change image to pause
+        setPlayButtonImage(cell)
         
         return cell
         
     }
     
-    func setImage(cell: MainTableViewCell){
-        if cell.playButton.buttonRow == currRow {
-            cell.playButton.setImage(UIImage(named: "Pause2") as UIImage?, forState: .Normal)
-        } else {
-            cell.playButton.setImage(UIImage(named: "Play1") as UIImage?, forState: .Normal)
-        }
-    }
+//MARK: Audio
     
     //If the button is clicked, then either play the media associated with its cell or pause the player
-    func playPause(sender:MediaButton) {
+    func playPause(sender:UIButton) {
         mixpanel.track("Play button tapped")
-
-        let button = sender as MediaButton
-        let view = button.superview!
+        
+        let view = sender.superview!
         let cell = view.superview as! MainTableViewCell
         
         let indexPath = tableView.indexPathForCell(cell)
-        if (!isPaused && (currRow != sender.buttonRow) && (currRow != -1)) {
+        if (!isPaused && (currRow != sender.tag) && (currRow != -1)) {
             if (self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: currRow, inSection: 0)) == nil) {
                 println("nil")
-                currRow = sender.buttonRow
-                grabSong(sender.buttonRow)
+                currRow = sender.tag
+                grabSong(sender.tag)
                 isPaused = false
-                //sender.setImage(UIImage(named: "Pause2") as UIImage?, forState: .Normal)
             } else {
                 println("notnil")
                 var cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: currRow, inSection: 0))  as! MainTableViewCell
                 isPaused = true
                 cell.playButton.setImage(UIImage(named: "Play1") as UIImage?, forState: .Normal)
                 isPaused = true
-                currRow = sender.buttonRow
+                currRow = sender.tag
                 sender.setImage(UIImage(named: "Pause2") as UIImage?, forState: .Normal)
-                grabSong(sender.buttonRow)
+                grabSong(sender.tag)
                 
                 isPaused = false
             }
         } else if (isPaused) {
-            grabSong(sender.buttonRow)
+            grabSong(sender.tag)
             isPaused = false
             sender.setImage(UIImage(named: "Pause2") as UIImage?, forState: .Normal)
-            currRow = sender.buttonRow
+            currRow = sender.tag
             
         } else {
             self.AudioPlayer.pause()
             isPaused = true
             sender.setImage(UIImage(named: "Play1") as UIImage?, forState: .Normal)
             currRow = -1
+        }
+    }
+    
+    func playerDidFinishPlaying(note: NSNotification) {
+        mixpanel.track("Song Did Finish")
+        
+        println(currRow)
+        if self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: currRow, inSection: 0)) == nil {
+            println("nil")
+            currRow = -1
+            isPaused = true
+        } else {
+            println("notnil")
+            var cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: currRow, inSection: 0))  as! MainTableViewCell
+            isPaused = true
+            cell.playButton.setImage(UIImage(named: "Play1") as UIImage?, forState: .Normal)
+            isPaused = true
+            currRow = -1
+        }
+    }
+    
+    //queries song, loads it into AVAudioPlayer and plays it
+    func grabSong(songNumber: Int){
+        self.session.setCategory(AVAudioSessionCategoryPlayback, error: nil)
+        var songQuery = PFQuery(className: "Song")
+        songQuery.getObjectInBackgroundWithId(IDArray[songNumber], block: {
+            (object: PFObject?, error: NSError?) -> Void in
+            if let AudioFileURLTemp = object?.objectForKey("songFile")?.url{
+                let item = AVPlayerItem(URL: NSURL(string: AudioFileURLTemp!))
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerDidFinishPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: item)
+                self.AudioPlayer = AVPlayer(playerItem: item)
+                self.AudioPlayer.play()
+            }
+        })
+    }
+
+    
+//MARK: Flagging
+    @IBAction func FlagPost(sender: AnyObject) {
+        println("Flag")
+        showFlagActionSheetForPost(sender.tag!)
+    }
+    func showFlagActionSheetForPost(objectRow: Int) {
+        let alertController = UIAlertController(title: nil, message: "Do you want to flag this post?", preferredStyle: .ActionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        let destroyAction = UIAlertAction(title: "Flag", style: UIAlertActionStyle.Destructive) { (alert) in
+            self.flagPost(self.IDArray[objectRow])
+        }
+        
+        alertController.addAction(destroyAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    func flagPost(objectID: String) {
+        if isInArray(objectID, iDArray: flaggedSongIDArray) {
+            var alert = UIAlertController(title: "Failed Flag", message: "You already flagged this post. We will look at the post and see if there is anything wrong!", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Go Back", style: UIAlertActionStyle.Cancel, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        } else {
+            mixpanel.track("Flagged Song")
+            var ObjectIDQuery2 = PFQuery(className: "Song")
+            ObjectIDQuery2.whereKey("objectId", equalTo: objectID)
+            var flaggedSong: PFObject = ObjectIDQuery2.findObjects()?.first as! PFObject
+            
+            let flagObject = PFObject(className: "Flag")
+            flagObject.setObject(PFUser.currentUser()!, forKey: "fromUser")
+            flagObject.setObject(flaggedSong, forKey: "toSong")
+            
+            let ACL = PFACL(user: PFUser.currentUser()!)
+            ACL.setPublicReadAccess(true)
+            flagObject.ACL = ACL
+            
+            flagObject.save()
+        }
+    }
+    
+    
+//MARK: Helper Methods
+    func setPlayButtonImage(cell: MainTableViewCell){
+        if cell.playButton.tag == currRow {
+            cell.playButton.setImage(UIImage(named: "Pause2") as UIImage?, forState: .Normal)
+        } else {
+            cell.playButton.setImage(UIImage(named: "Play1") as UIImage?, forState: .Normal)
         }
     }
     
@@ -176,89 +298,13 @@ class MainTableViewController: UITableViewController {
         return tempString
     }
     
-    //queries song, loads it into AVAudioPlayer and plays it
-    func grabSong(songNumber: Int){
-        self.session.setCategory(AVAudioSessionCategoryPlayback, error: nil)
-        var songQuery = PFQuery(className: "Song")
-        songQuery.getObjectInBackgroundWithId(IDArray[songNumber], block: {
-            (object: PFObject?, error: NSError?) -> Void in
-            if let AudioFileURLTemp = object?.objectForKey("songFile")?.url{
-                let item = AVPlayerItem(URL: NSURL(string: AudioFileURLTemp!))
-                NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerDidFinishPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: item)
-                self.AudioPlayer = AVPlayer(playerItem: item)
-                self.AudioPlayer.play()
+    func isInArray(objectId: String, iDArray: [String]) -> Bool{
+        for var i = 0; i < iDArray.count; i++ {
+            if iDArray[i] == objectId{
+                return true
             }
-        })
-    }
-    
-    func playerDidFinishPlaying(note: NSNotification) {
-        mixpanel.track("Song Did Finish")
-
-        println(currRow)
-        if self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: currRow, inSection: 0)) == nil {
-            println("nil")
-            currRow = -1
-            isPaused = true
-        } else {
-            println("notnil")
-            var cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: currRow, inSection: 0))  as! MainTableViewCell
-            isPaused = true
-            cell.playButton.setImage(UIImage(named: "Play1") as UIImage?, forState: .Normal)
-            isPaused = true
-            currRow = -1
         }
-    }
-    
-    @IBAction func FlagPost(sender: AnyObject) {
-        println("Flag")
-        showFlagActionSheetForPost(sender.tag!)
-    }
-    
-    func showFlagActionSheetForPost(objectRow: Int) {
-        let alertController = UIAlertController(title: nil, message: "Do you want to flag this post?", preferredStyle: .ActionSheet)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        alertController.addAction(cancelAction)
-        
-        let destroyAction = UIAlertAction(title: "Flag", style: UIAlertActionStyle.Destructive) { (alert) in
-            self.flagPost(self.IDArray[objectRow])
-        }
-        
-        alertController.addAction(destroyAction)
-        
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
-    func flagPost(objectID: String) {
-        mixpanel.track("Flagged Song")
-        var ObjectIDQuery2 = PFQuery(className: "Song")
-        ObjectIDQuery2.whereKey("objectId", equalTo: objectID)
-        var flaggedSong: PFObject = ObjectIDQuery2.findObjects()?.first as! PFObject
-        
-        let flagObject = PFObject(className: "Flag")
-        flagObject.setObject(PFUser.currentUser()!, forKey: "fromUser")
-        flagObject.setObject(flaggedSong, forKey: "toSong")
-        
-        let ACL = PFACL(user: PFUser.currentUser()!)
-        ACL.setPublicReadAccess(true)
-        flagObject.ACL = ACL
-        
-        flagObject.save()
-        
-        
-    }
-
-    
-    
-//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        //println("index row = \(indexPath.row)")
-//        var cell = self.tableView.cellForRowAtIndexPath(indexPath) as! MainTableViewCell
-//        // println("\(cell.playButton.buttonRow)")
-//        
-//    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        return false
     }
 
 

@@ -11,13 +11,15 @@ import Parse
 import Bolts
 import Mixpanel
 
-//var nameOfApp = "AdWDAWD"
 
+//Global variables
 public var hasPopup = false
 
 public var isPaused = true
 
 public var currRow = -1
+
+public var grayBackroundColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
 
 
 @UIApplicationMain

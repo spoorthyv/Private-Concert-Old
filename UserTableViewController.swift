@@ -111,9 +111,9 @@ class UserTableViewController: UITableViewController {
         cell.titleLabel?.text = nameArray[indexPath.row]
         cell.tagsLabel?.text = tagsArray[indexPath.row]
         
-        cell.playButton.buttonRow = indexPath.row
+        cell.playButton.tag = indexPath.row
         
-        println("Button index: \(cell.playButton.buttonRow), Cell index: \(indexPath.row)")
+        println("Button index: \(cell.playButton.tag), Cell index: \(indexPath.row)")
         
         cell.playButton.addTarget(self, action: "playPause:", forControlEvents: .TouchUpInside)
         
@@ -124,7 +124,7 @@ class UserTableViewController: UITableViewController {
     }
     
     func setImage(cell: UserTableViewCell){
-        if cell.playButton.buttonRow == currRow {
+        if cell.playButton.tag == currRow {
             cell.playButton.setImage(UIImage(named: "Pause2") as UIImage?, forState: .Normal)
             //cell.playButton.isPaused = true
         } else {
@@ -134,18 +134,18 @@ class UserTableViewController: UITableViewController {
     }
     
     //If the button is clicked, then either play the media associated with its cell or pause the player
-    func playPause(sender:MediaButton) {
+    func playPause(sender: UIButton) {
         mixpanel.track("Play button tapped")
-        let button = sender as MediaButton
+        let button = sender
         let view = button.superview!
         let cell = view.superview as! UserTableViewCell
         
         let indexPath = tableView.indexPathForCell(cell)
-        if (!isPaused && (currRow != sender.buttonRow) && (currRow != -1)) {
+        if (!isPaused && (currRow != sender.tag) && (currRow != -1)) {
             if (self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: currRow, inSection: 0)) == nil) {
                 println("nil")
-                currRow = sender.buttonRow
-                grabSong(sender.buttonRow)
+                currRow = sender.tag
+                grabSong(sender.tag)
                 isPaused = false
                 //sender.setImage(UIImage(named: "Pause2") as UIImage?, forState: .Normal)
             } else {
@@ -154,17 +154,17 @@ class UserTableViewController: UITableViewController {
                 isPaused = true
                 cell.playButton.setImage(UIImage(named: "Play5") as UIImage?, forState: .Normal)
                 isPaused = true
-                currRow = sender.buttonRow
+                currRow = sender.tag
                 sender.setImage(UIImage(named: "Pause2") as UIImage?, forState: .Normal)
-                grabSong(sender.buttonRow)
+                grabSong(sender.tag)
                 
                 isPaused = false
             }
         } else if (isPaused) {
-            grabSong(sender.buttonRow)
+            grabSong(sender.tag)
             isPaused = false
             sender.setImage(UIImage(named: "Pause2") as UIImage?, forState: .Normal)
-            currRow = sender.buttonRow
+            currRow = sender.tag
             
         } else {
             self.AudioPlayer.pause()

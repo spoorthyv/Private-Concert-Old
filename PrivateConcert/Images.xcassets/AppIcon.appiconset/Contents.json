@@ -131,68 +131,6 @@
       "idiom" : "mac",
       "filename" : "mac-512@2x.png",
       "scale" : "2x"
-    },
-    {
-      "size" : "24x24",
-      "scale" : "2x",
-      "filename" : "watch-notificationCenter-38mm@2x.png",
-      "unassigned" : true,
-      "subtype" : "38mm",
-      "role" : "notificationCenter"
-    },
-    {
-      "size" : "27.5x27.5",
-      "scale" : "2x",
-      "filename" : "watch-notificationCenter-42mm@2x.png",
-      "unassigned" : true,
-      "subtype" : "42mm",
-      "role" : "notificationCenter"
-    },
-    {
-      "size" : "29x29",
-      "filename" : "watch-companionSettings@2x.png",
-      "unassigned" : true,
-      "role" : "companionSettings",
-      "scale" : "2x"
-    },
-    {
-      "size" : "29x29",
-      "filename" : "watch-companionSettings@3x.png",
-      "unassigned" : true,
-      "role" : "companionSettings",
-      "scale" : "3x"
-    },
-    {
-      "size" : "40x40",
-      "scale" : "2x",
-      "filename" : "watch-appLauncher-38mm@2x.png",
-      "unassigned" : true,
-      "subtype" : "38mm",
-      "role" : "appLauncher"
-    },
-    {
-      "size" : "44x44",
-      "scale" : "2x",
-      "filename" : "watch-longLook-42mm@2x.png",
-      "unassigned" : true,
-      "subtype" : "42mm",
-      "role" : "longLook"
-    },
-    {
-      "size" : "86x86",
-      "scale" : "2x",
-      "filename" : "watch-quickLook-38mm@2x.png",
-      "unassigned" : true,
-      "subtype" : "38mm",
-      "role" : "quickLook"
-    },
-    {
-      "size" : "98x98",
-      "scale" : "2x",
-      "filename" : "watch-quickLook-42mm@2x.png",
-      "unassigned" : true,
-      "subtype" : "42mm",
-      "role" : "quickLook"
     }
   ],
   "info" : {

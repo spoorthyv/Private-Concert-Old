@@ -15,10 +15,6 @@ class LoginViewController: UIViewController, PFLogInViewControllerDelegate, PFSi
     var logInViewController: PFLogInViewController! = PFLogInViewController()
     var signUpViewController: PFSignUpViewController! = PFSignUpViewController()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -92,7 +88,7 @@ class LoginViewController: UIViewController, PFLogInViewControllerDelegate, PFSi
                 return true
             }
             else {
-                var alert = UIAlertController(title: "Failed Signup", message: "Password must be greater than 8 characters", preferredStyle: UIAlertControllerStyle.Alert)
+                var alert = UIAlertController(title: "Failed Signup", message: "Password must be greater than 5 characters", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
                 signUpViewController.presentViewController(alert, animated: true, completion: nil)
                 return false
