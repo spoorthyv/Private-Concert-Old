@@ -209,7 +209,6 @@
 		E56B37071B66C3540015678A /* PrivateConcert */ = {
 			isa = PBXGroup;
 			children = (
-				E54DB3431B945CD6002F3F55 /* Lock.mp3 */,
 				E56B370A1B66C3540015678A /* AppDelegate.swift */,
 				E57750AD1B7C0CFC00F9E336 /* Main.storyboard */,
 				E57750DB1B7C159200F9E336 /* PrivateConcert-Bridging-Header.h */,
@@ -226,6 +225,7 @@
 		E56B37081B66C3540015678A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E54DB3431B945CD6002F3F55 /* Lock.mp3 */,
 				E5ED4E471B697DC4001889C8 /* pier-bold-italic.otf */,
 				E5ED4E481B697DC4001889C8 /* pier-bold.otf */,
 				E5ED4E491B697DC4001889C8 /* pier-italic.otf */,

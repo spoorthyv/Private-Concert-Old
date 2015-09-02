@@ -123,7 +123,6 @@ class MainTableViewController: UITableViewController, UIGestureRecognizerDelegat
         var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! MainTableViewCell
         
         //set the title and tags of each cell
-        //if nameArray[indexPath.row] == flagArray[0].valueForKey("toSong") as! [String] {
         if isInArray(IDArray[indexPath.row], iDArray: flaggedSongIDArray) {
             cell.titleLabel?.text = " "
             cell.tagsLabel?.text = " "
@@ -196,6 +195,7 @@ class MainTableViewController: UITableViewController, UIGestureRecognizerDelegat
         }
     }
     
+    //When song finishes, reset the button, the currRow, and isPaused
     func playerDidFinishPlaying(note: NSNotification) {
         mixpanel.track("Song Did Finish")
         
@@ -231,24 +231,19 @@ class MainTableViewController: UITableViewController, UIGestureRecognizerDelegat
 
     
 //MARK: Flagging
+    
+    //Plays tick osund and shows flagging sheet on long press of cell
     func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
         if gestureReconizer.state == UIGestureRecognizerState.Began {
             let p = gestureReconizer.locationInView(self.tableView)
             let indexPath = self.tableView.indexPathForRowAtPoint(p)
             
-            if let index = indexPath {
-                var cell = self.tableView.cellForRowAtIndexPath(indexPath!)
-                // do stuff with your cell, for example print the indexPath
-                println(index.row)
-                
-                playSound()
-                
-                showFlagActionSheetForPost(index.row)
-            } else {
-                println("Could not find index path")
-            }
+            playTickSound()
+            showFlagActionSheetForPost(indexPath!.row)
         }
     }
+    
+    //Presents alert controller for flagging. If "flag" is pressed, call flagPost method
     func showFlagActionSheetForPost(objectRow: Int) {
         let alertController = UIAlertController(title: nil, message: "Do you want to flag this post?", preferredStyle: .ActionSheet)
         
@@ -263,6 +258,8 @@ class MainTableViewController: UITableViewController, UIGestureRecognizerDelegat
         
         self.presentViewController(alertController, animated: true, completion: nil)
     }
+    
+    //Checks if post is already flagged. If it is then flag and reload table
     func flagPost(objectID: String) {
         if isInArray(objectID, iDArray: flaggedSongIDArray) {
             var alert = UIAlertController(title: "Failed Flag", message: "You already flagged this post. We will look at the post and see if there is anything wrong!", preferredStyle: UIAlertControllerStyle.Alert)
@@ -289,6 +286,8 @@ class MainTableViewController: UITableViewController, UIGestureRecognizerDelegat
     
     
 //MARK: Helper Methods
+    
+    //If the row is the currRow then itll switch to pause button or else itll be play
     func setPlayButtonImage(cell: MainTableViewCell){
         if cell.playButton.tag == currRow {
             cell.playButton.setImage(UIImage(named: "Pause2") as UIImage?, forState: .Normal)
@@ -315,6 +314,7 @@ class MainTableViewController: UITableViewController, UIGestureRecognizerDelegat
         return tempString
     }
     
+    //Checks if string is in a string array
     func isInArray(objectId: String, iDArray: [String]) -> Bool{
         for var i = 0; i < iDArray.count; i++ {
             if iDArray[i] == objectId{
@@ -324,7 +324,8 @@ class MainTableViewController: UITableViewController, UIGestureRecognizerDelegat
         return false
     }
     
-    func playSound() {
+    //Plays a tick sound (used for long press on flagging)
+    func playTickSound() {
         var alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Lock", ofType: "mp3")!)
         var error:NSError?
         audioPlayer2 = AVAudioPlayer(contentsOfURL: alertSound, error: &error)
