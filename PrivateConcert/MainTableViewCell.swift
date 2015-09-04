@@ -13,6 +13,9 @@ class MainTableViewCell: UITableViewCell {
     @IBOutlet weak var tagsLabel: UILabel!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var isFlaggedLabel: UILabel!
+    @IBOutlet weak var upVoteButton: UIButton!
+    @IBOutlet weak var downVoteButton: UIButton!
+    @IBOutlet weak var voteCountLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

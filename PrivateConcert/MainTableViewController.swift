@@ -25,9 +25,16 @@ class MainTableViewController: UITableViewController, UIGestureRecognizerDelegat
     var IDArray: [String] = [""]
     var nameArray: [String] = [""]
     var tagsArray: [String] = [""]
+    
     var flagArray = NSArray()
     var flagPointerArray: [PFObject] = [PFObject(className: "Flag")]
     var flaggedSongIDArray: [String] = [""]
+    
+    var personalVoteArray = NSArray()
+    var personalVoteValueArray: [Int] = []
+    var personaVoteObjectIDArray: [String] = []
+    
+    var voteArray: [Int] = [0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     
 
 //MARK: View Did Load
@@ -55,6 +62,30 @@ class MainTableViewController: UITableViewController, UIGestureRecognizerDelegat
     
     //Queries all objects from Parse. Puts data into 3 arrays. Refreshes tableview
     func reloadTableQuery(){
+        
+        var ObjectIDQuery3 = PFQuery(className: "Vote")
+        ObjectIDQuery3.whereKey("fromUser", equalTo: PFUser.currentUser()!)
+        ObjectIDQuery3.findObjectsInBackgroundWithBlock({
+            (objectsArray: [AnyObject]?, error: NSError?) -> Void in
+            
+            self.personalVoteArray = objectsArray as! [PFObject]
+            
+            var tempVoteArray = objectsArray as! [PFObject]
+            
+            self.personalVoteValueArray = [Int](count: tempVoteArray.count, repeatedValue: 0)
+            self.personaVoteObjectIDArray = [String](count: tempVoteArray.count, repeatedValue: "")
+            
+            if tempVoteArray.count > 0 {
+                for i in 0...tempVoteArray.count-1 {
+                    var tempSongPointer = (tempVoteArray[i].valueForKey("toSong") as! PFObject)
+                    self.personaVoteObjectIDArray[i] = tempSongPointer.valueForKey("objectId") as! String
+                    self.personalVoteValueArray[i] = tempVoteArray[i].valueForKey("value") as! Int
+                    self.tableView.reloadData()
+                }
+                //Else display an error
+            }
+            
+        })
         
         var ObjectIDQuery2 = PFQuery(className: "Flag")
         ObjectIDQuery2.whereKey("fromUser", equalTo: PFUser.currentUser()!)
@@ -123,13 +154,15 @@ class MainTableViewController: UITableViewController, UIGestureRecognizerDelegat
         var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! MainTableViewCell
         
         //set the title and tags of each cell
-        if isInArray(IDArray[indexPath.row], iDArray: flaggedSongIDArray) {
+        if stringIsInArray(IDArray[indexPath.row], stringArray: flaggedSongIDArray) {
             cell.titleLabel?.text = " "
             cell.tagsLabel?.text = " "
             cell.isFlaggedLabel?.text = "FLAGGED"
             
             //button tag = row of the button
             cell.playButton.tag = indexPath.row
+            cell.upVoteButton.tag = indexPath.row
+            cell.downVoteButton.tag = indexPath.row
             
         } else {
             cell.titleLabel?.text = nameArray[indexPath.row]
@@ -138,16 +171,21 @@ class MainTableViewController: UITableViewController, UIGestureRecognizerDelegat
             
             //button tag = row of the button
             cell.playButton.tag = indexPath.row
-
+            cell.upVoteButton.tag = indexPath.row
+            cell.downVoteButton.tag = indexPath.row
         }
         
         println("Button index: \(cell.playButton.tag), Cell index: \(indexPath.row)")
         
-        //When button is pressed call 'playPause'
+        //When button is pressed call the corresponding action method
         cell.playButton.addTarget(self, action: "playPause:", forControlEvents: .TouchUpInside)
+        cell.upVoteButton.addTarget(self, action: "upVote:", forControlEvents: .TouchUpInside)
+        cell.downVoteButton.addTarget(self, action: "downVote:", forControlEvents: .TouchUpInside)
         
         //Set image of each cell's playButton: If the currRow = the buttons row -> change image to pause
         setPlayButtonImage(cell)
+        setVoteButtonImage(cell)
+        setVoteCountLabel(cell)
         
         return cell
         
@@ -194,6 +232,38 @@ class MainTableViewController: UITableViewController, UIGestureRecognizerDelegat
             currRow = -1
         }
     }
+    
+    func upVote(sender:UIButton) {
+        if voteArray[sender.tag] == 1 {
+            voteArray[sender.tag] = 0
+            deleteVotePost(self.IDArray[sender.tag])
+        } else if voteArray[sender.tag] == 0 {
+            voteArray[sender.tag] = 1
+            self.votePost(self.IDArray[sender.tag], value: 1)
+        } else if voteArray[sender.tag] == -1 {
+            voteArray[sender.tag] = 1
+            deleteVotePost(self.IDArray[sender.tag])
+            self.votePost(self.IDArray[sender.tag], value: 1)
+        }
+        self.tableView.reloadData()
+    }
+    
+    func downVote(sender:UIButton) {
+        if voteArray[sender.tag] == 1 {
+            voteArray[sender.tag] = -1
+            deleteVotePost(self.IDArray[sender.tag])
+            self.votePost(self.IDArray[sender.tag], value: -1)
+        } else if voteArray[sender.tag] == 0 {
+            voteArray[sender.tag] = -1
+            self.votePost(self.IDArray[sender.tag], value: -1)
+        } else if voteArray[sender.tag] == -1 {
+            voteArray[sender.tag] = 0
+            deleteVotePost(self.IDArray[sender.tag])
+        }
+        self.tableView.reloadData()
+    }
+    
+    
     
     //When song finishes, reset the button, the currRow, and isPaused
     func playerDidFinishPlaying(note: NSNotification) {
@@ -261,7 +331,7 @@ class MainTableViewController: UITableViewController, UIGestureRecognizerDelegat
     
     //Checks if post is already flagged. If it is then flag and reload table
     func flagPost(objectID: String) {
-        if isInArray(objectID, iDArray: flaggedSongIDArray) {
+        if stringIsInArray(objectID, stringArray: flaggedSongIDArray) {
             var alert = UIAlertController(title: "Failed Flag", message: "You already flagged this post. We will look at the post and see if there is anything wrong!", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Go Back", style: UIAlertActionStyle.Cancel, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
@@ -283,7 +353,51 @@ class MainTableViewController: UITableViewController, UIGestureRecognizerDelegat
             reloadTableQuery()
         }
     }
+
+//MARK: Voting
+    func votePost(objectID: String, value: Int) {
+        mixpanel.track("Voted on Song")
+            
+        var ObjectIDQuery2 = PFQuery(className: "Song")
+        ObjectIDQuery2.whereKey("objectId", equalTo: objectID)
+        var flaggedSong: PFObject = ObjectIDQuery2.findObjects()?.first as! PFObject
+            
+        let voteObject = PFObject(className: "Vote")
+        voteObject.setObject(PFUser.currentUser()!, forKey: "fromUser")
+        voteObject.setObject(flaggedSong, forKey: "toSong")
+        voteObject.setObject(value, forKey: "value")
+            
+        let ACL = PFACL(user: PFUser.currentUser()!)
+        ACL.setPublicReadAccess(true)
+        voteObject.ACL = ACL
+            
+        voteObject.save()
+        reloadTableQuery()
+    }
     
+    func deleteVotePost(toSongObjectID: String) {
+        mixpanel.track("Deleted Song")
+        
+        
+        var findUpVotedSongQuery = PFQuery(className: "Song")
+        findUpVotedSongQuery.whereKey("objectId", equalTo: toSongObjectID)
+        var upVotedSong: PFObject = findUpVotedSongQuery.findObjects()?.first as! PFObject
+        
+        var DeleteQuery = PFQuery(className: "Vote")
+        DeleteQuery.whereKey("toSong", equalTo: upVotedSong)
+        DeleteQuery.whereKey("fromUser", equalTo: PFUser.currentUser()!)
+        DeleteQuery.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]?, error: NSError?) -> Void in
+            if let error = error {
+                println("error")
+            } else {
+                for object in objects!{
+                    object.delete()
+                }
+            }
+        }
+        reloadTableQuery()
+    }
     
 //MARK: Helper Methods
     
@@ -296,6 +410,24 @@ class MainTableViewController: UITableViewController, UIGestureRecognizerDelegat
         }
     }
     
+    func setVoteButtonImage(cell: MainTableViewCell){
+        println("kddkjljdljd"  )
+        if voteArray[cell.upVoteButton.tag] == 1 {
+            cell.upVoteButton.setImage(UIImage(named: "UpVoteBold") as UIImage?, forState: .Normal)
+            cell.downVoteButton.setImage(UIImage(named: "DownVote") as UIImage?, forState: .Normal)
+        } else if voteArray[cell.upVoteButton.tag] == 0 {
+            cell.upVoteButton.setImage(UIImage(named: "UpVote") as UIImage?, forState: .Normal)
+            cell.downVoteButton.setImage(UIImage(named: "DownVote") as UIImage?, forState: .Normal)
+        } else if voteArray[cell.upVoteButton.tag] == -1 {
+            cell.upVoteButton.setImage(UIImage(named: "UpVote") as UIImage?, forState: .Normal)
+            println("down vote cell = \(cell.downVoteButton.tag)")
+            cell.downVoteButton.setImage(UIImage(named: "DownVoteBold") as UIImage?, forState: .Normal)
+        }
+    }
+    
+    func setVoteCountLabel(cell: MainTableViewCell){
+        cell.voteCountLabel.text = "\(voteArray[cell.upVoteButton.tag])"
+    }
     //Converts array of strings into one String with tags seperated by " | "
     func convertTagsToString(tagArray: [String]) -> String{
         var tempString = ""
@@ -315,9 +447,9 @@ class MainTableViewController: UITableViewController, UIGestureRecognizerDelegat
     }
     
     //Checks if string is in a string array
-    func isInArray(objectId: String, iDArray: [String]) -> Bool{
-        for var i = 0; i < iDArray.count; i++ {
-            if iDArray[i] == objectId{
+    func stringIsInArray(string: String, stringArray: [String]) -> Bool{
+        for var i = 0; i < stringArray.count; i++ {
+            if stringArray[i] == string{
                 return true
             }
         }
